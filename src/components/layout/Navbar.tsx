@@ -4,107 +4,58 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
-const COMPANY_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Careers", href: "#careers" },
+const NAV_LINKS = [
+  { label: "Process", href: "#process" },
+  { label: "Services", href: "#services" },
+  { label: "Pricing", href: "#services" },
   { label: "Contact", href: "#contact" },
 ];
 
-const RESOURCES_LINKS = [
-  { label: "Blog", href: "#blog" },
-  { label: "Resources", href: "#resources" },
-];
-
-type NavLink = { label: string; href: string };
-
-function ChevronDown({ open }: { open: boolean }) {
-  return (
-    <svg
-      width="10"
-      height="10"
-      viewBox="0 0 12 12"
-      fill="none"
-      aria-hidden
-      className={`shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-    >
-      <path
-        d="M2.5 4.5L6 8l3.5-3.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function Dropdown(props: {
-  label: string;
-  links: NavLink[];
-  onClose: () => void;
-}) {
-  const { label, links, onClose } = props;
-  const [open, setOpen] = useState(false);
-
-  const menuList = open ? (
-    <ul
-      className="absolute top-full left-0 z-50 mt-2 min-w-[160px] rounded-xl border border-[var(--color-hero-border)] bg-white/95 py-1.5 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.12)] backdrop-blur-sm"
-      role="menu"
-    >
-      {links.map((item: NavLink) => (
-        <li key={item.href} role="none">
-          <Link
-            href={item.href}
-            role="menuitem"
-            className="block px-4 py-2.5 text-sm text-[var(--color-hero-muted)] transition-colors hover:bg-[var(--color-hero-accent)]/10 hover:text-[var(--color-hero-text)]"
-            onClick={onClose}
-          >
-            {item.label}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  ) : null;
-
-  return (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => {
-        setOpen(false);
-        onClose();
-      }}
-    >
-      <button
-        type="button"
-        className="flex items-center gap-1.5 text-sm font-medium text-[var(--color-hero-muted)] transition-colors hover:text-[var(--color-hero-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 rounded-md px-1 py-0.5"
-        aria-expanded={open}
-        aria-haspopup="true"
-      >
-        {label}
-        <ChevronDown open={open} />
-      </button>
-      {menuList}
-    </div>
-  );
-}
-
-function MobileMenu({
-  open,
-  onClose,
+function NavLinkItem({
+  label,
+  href,
+  active,
+  onClick,
 }: {
-  open: boolean;
-  onClose: () => void;
+  label: string;
+  href: string;
+  active: boolean;
+  onClick?: () => void;
 }) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="relative py-2 text-sm font-medium text-[var(--color-hero-muted)] transition-colors hover:text-[var(--color-hero-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded px-1"
+    >
+      {active && (
+        <motion.span
+          layoutId="nav-underline"
+          className="absolute bottom-0 left-1 right-1 h-0.5 bg-[var(--color-hero-accent)]"
+          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+        />
+      )}
+      {label}
+    </Link>
+  );
+}
+
+function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   if (!open) return null;
   return (
     <>
       <div
-        className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden"
+        className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm md:hidden"
         aria-hidden
         onClick={onClose}
       />
-      <div className="fixed top-0 right-0 z-50 h-full w-[min(100vw,320px)] border-l border-[var(--color-hero-border)] bg-white shadow-2xl md:hidden">
+      <motion.div
+        initial={{ opacity: 0, x: "100%" }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: "100%" }}
+        transition={{ type: "spring", damping: 28, stiffness: 200 }}
+        className="fixed top-0 right-0 z-50 h-full w-[min(100vw,300px)] border-l border-black/5 bg-white/95 shadow-2xl backdrop-blur-xl md:hidden"
+      >
         <div className="flex h-16 items-center justify-end px-6">
           <button
             type="button"
@@ -117,74 +68,50 @@ function MobileMenu({
             </svg>
           </button>
         </div>
-        <nav className="flex flex-col gap-1 px-4 pb-8">
-          <Link
-            href="#features"
-            onClick={onClose}
-            className="rounded-lg px-4 py-3 text-[15px] font-medium text-[var(--color-hero-text)] hover:bg-black/5"
-          >
-            Features
-          </Link>
-          <div className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-hero-muted)]">
-            Company
-          </div>
-          {COMPANY_LINKS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={onClose}
-              className="rounded-lg px-4 py-2.5 pl-6 text-[15px] text-[var(--color-hero-muted)] hover:bg-black/5 hover:text-[var(--color-hero-text)]"
+        <nav className="flex flex-col gap-1 px-6 pb-10">
+          {NAV_LINKS.map((link, i) => (
+            <motion.div
+              key={link.href + link.label}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
             >
-              {item.label}
-            </Link>
+              <Link
+                href={link.href}
+                onClick={onClose}
+                className="block rounded-lg px-4 py-3 text-[15px] font-medium text-[var(--color-hero-text)] hover:bg-[var(--color-hero-accent)]/10"
+              >
+                {link.label}
+              </Link>
+            </motion.div>
           ))}
-          <div className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-hero-muted)]">
-            Resources
-          </div>
-          {RESOURCES_LINKS.map((item) => (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-6 pt-6 border-t border-black/5"
+          >
             <Link
-              key={item.href}
-              href={item.href}
+              href="#get-started"
               onClick={onClose}
-              className="rounded-lg px-4 py-2.5 pl-6 text-[15px] text-[var(--color-hero-muted)] hover:bg-black/5 hover:text-[var(--color-hero-text)]"
+              className="flex items-center justify-center gap-2 rounded-full bg-[var(--color-hero-accent)] py-3.5 text-[15px] font-semibold text-[var(--color-ink)] shadow-[0_4px_20px_rgba(202,138,4,0.35)] hover:shadow-[0_6px_24px_rgba(202,138,4,0.4)] transition-shadow"
             >
-              {item.label}
+              Book a Demo
+              <span aria-hidden>→</span>
             </Link>
-          ))}
-          <Link
-            href="#pricing"
-            onClick={onClose}
-            className="rounded-lg px-4 py-3 text-[15px] font-medium text-[var(--color-hero-text)] hover:bg-black/5"
-          >
-            Pricing
-          </Link>
-          <div className="my-4 border-t border-[var(--color-hero-border)]" />
-          <Link
-            href="#login"
-            onClick={onClose}
-            className="rounded-lg px-4 py-3 text-[15px] text-[var(--color-hero-muted)] hover:bg-black/5"
-          >
-            Login
-          </Link>
-          <Link
-            href="#get-started"
-            onClick={onClose}
-            className="mx-4 mt-2 flex items-center justify-center gap-2 rounded-full bg-[var(--color-hero-accent)] py-3.5 text-[15px] font-semibold text-[var(--color-ink)] shadow-[0_4px_14px_rgba(245,197,24,0.35)] transition-all hover:bg-[var(--color-hero-accent-hover)] hover:shadow-[0_6px_20px_rgba(245,197,24,0.4)]"
-          >
-            Book a Demo
-            <span aria-hidden>→</span>
-          </Link>
+          </motion.div>
         </nav>
-      </div>
+      </motion.div>
     </>
   );
 }
 
-const EASE_NAV = [0.22, 1, 0.36, 1] as const;
 const TOP_STRIP_HEIGHT = 80;
 const HEADER_HEIGHT = 64;
-
 const AT_TOP_THRESHOLD = 50;
+// Approximate section boundaries (vh): hero ~100, process ~900, then services
+const HERO_VH = 100;
+const PROCESS_VH = 900;
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -192,11 +119,18 @@ export function Navbar() {
   const [topHover, setTopHover] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
+  const [activeSection, setActiveSection] = useState<"process" | "services" | null>(null);
 
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 20);
     setIsAtTop(latest < AT_TOP_THRESHOLD);
+    const vh = typeof window !== "undefined" ? window.innerHeight : 800;
+    const heroEnd = HERO_VH * vh;
+    const processEnd = heroEnd + PROCESS_VH * vh;
+    if (latest < heroEnd * 0.5) setActiveSection(null);
+    else if (latest < processEnd * 0.5) setActiveSection("process");
+    else setActiveSection("services");
   });
 
   useEffect(() => {
@@ -218,7 +152,6 @@ export function Navbar() {
 
   return (
     <>
-      {/* Hover zone: top strip + header when visible; cursor here reveals navbar (desktop only) */}
       <div
         className="fixed left-0 right-0 top-0 z-[60]"
         style={{ height: visible ? TOP_STRIP_HEIGHT + HEADER_HEIGHT : TOP_STRIP_HEIGHT }}
@@ -228,58 +161,46 @@ export function Navbar() {
       />
       <motion.header
         initial={false}
-        animate={{ y: visible ? "0%" : "-100%" }}
-        transition={{ duration: 0.35, ease: EASE_NAV }}
+        animate={{ y: visible ? 0 : -HEADER_HEIGHT }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className={`sticky top-0 z-50 border-b ${
           scrolled
-            ? "border-[var(--color-hero-border)] bg-white shadow-sm backdrop-blur-md"
-            : "border-transparent bg-white/90 backdrop-blur-sm"
+            ? "border-black/5 bg-white/70 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.06)] backdrop-blur-xl"
+            : "border-transparent bg-white/80 backdrop-blur-md"
         }`}
       >
         <div className="section-content flex h-16 items-center justify-between">
           <Link
             href="/"
-            className="text-xl font-bold tracking-tight text-[var(--color-hero-text)] transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 rounded-md"
+            className="flex items-center gap-2 text-[1.25rem] font-bold tracking-tight text-[var(--color-hero-text)] transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 rounded-md"
           >
+            <span className="h-2 w-2 rounded-full bg-[var(--color-hero-accent)]" aria-hidden />
             Atfro
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">
-            <Link
-              href="#features"
-              className="relative text-sm font-medium text-[var(--color-hero-muted)] transition-colors hover:text-[var(--color-hero-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 rounded-md px-1 after:absolute after:bottom-0 after:left-1 after:right-1 after:h-0.5 after:scale-x-0 after:bg-[var(--color-hero-accent)] after:transition-transform after:content-[''] hover:after:scale-x-100"
-            >
-              Features
-            </Link>
-            <Dropdown label="Company" links={COMPANY_LINKS} onClose={() => {}} />
-            <Dropdown label="Resources" links={RESOURCES_LINKS} onClose={() => {}} />
-            <Link
-              href="#pricing"
-              className="relative text-sm font-medium text-[var(--color-hero-muted)] transition-colors hover:text-[var(--color-hero-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 rounded-md px-1 after:absolute after:bottom-0 after:left-1 after:right-1 after:h-0.5 after:scale-x-0 after:bg-[var(--color-hero-accent)] after:transition-transform after:content-[''] hover:after:scale-x-100"
-            >
-              Pricing
-            </Link>
+            {NAV_LINKS.map((link) => (
+              <NavLinkItem
+                key={link.href + link.label}
+                label={link.label}
+                href={link.href}
+                active={
+                  (link.label === "Process" && activeSection === "process") ||
+                  (link.label === "Services" && activeSection === "services") ||
+                  (link.label === "Pricing" && activeSection === "services")
+                }
+              />
+            ))}
           </nav>
 
           <div className="flex items-center gap-3">
             <Link
-              href="#login"
-              className="hidden text-sm font-medium text-[var(--color-hero-muted)] transition-colors hover:text-[var(--color-hero-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 rounded-md px-3 py-2 md:block"
-            >
-              Login
-            </Link>
-            <Link
               href="#get-started"
-              className={`hidden items-center gap-2 rounded-full bg-[var(--color-hero-accent)] px-5 py-2.5 text-sm font-semibold text-[var(--color-ink)] transition-all hover:scale-[1.02] hover:bg-[var(--color-hero-accent-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 md:inline-flex ${
-                scrolled
-                  ? "shadow-[0_4px_14px_rgba(245,197,24,0.38)] hover:shadow-[0_6px_20px_rgba(245,197,24,0.45)]"
-                  : "shadow-[0_2px_10px_rgba(245,197,24,0.3)] hover:shadow-[0_4px_16px_rgba(245,197,24,0.4)]"
-              }`}
+              className="hidden items-center gap-2 rounded-full bg-[var(--color-hero-accent)] px-6 py-2.5 text-sm font-semibold text-[var(--color-ink)] shadow-[0_4px_20px_rgba(202,138,4,0.32)] transition-all hover:scale-[1.02] hover:shadow-[0_6px_28px_rgba(202,138,4,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 md:inline-flex"
             >
               Book a Demo
               <span aria-hidden>→</span>
             </Link>
-
             <button
               type="button"
               onClick={() => setMobileOpen(true)}

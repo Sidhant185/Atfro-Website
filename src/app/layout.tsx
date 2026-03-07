@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Space_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
+import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -32,8 +33,10 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} ${spaceMono.variable} min-h-screen font-sans text-[var(--color-ink)] antialiased`}
       >
-        <Navbar />
-        <main className="grow">{children}</main>
+        <SmoothScroll>
+          <Navbar />
+          <main className="grow">{children}</main>
+        </SmoothScroll>
       </body>
     </html>
   );

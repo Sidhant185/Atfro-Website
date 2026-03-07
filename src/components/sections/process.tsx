@@ -49,10 +49,10 @@ const PROCESS_STEPS = [
 ] as const;
 
 const SEGMENT = 1 / 6;
-// Card is stuck from 200vh to 800vh of the 800vh wrapper → progress 0.25 to 1 (600vh stuck)
-const STUCK_START = 200 / 800; // 0.25
-const STUCK_RANGE = 600 / 800; // 0.75
-const STUCK_SEG = STUCK_RANGE * SEGMENT; // 0.125 per step
+// Wrapper 900vh: 200vh spacer + 100vh sticky + 600vh bottom; step animation starts at 200/900
+const STUCK_START = 200 / 900; // ~0.222
+const STUCK_RANGE = 600 / 900; // ~0.667 — all 6 steps get equal scroll range
+const STUCK_SEG = STUCK_RANGE * SEGMENT;
 
 export function Process() {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -74,7 +74,6 @@ export function Process() {
     [STUCK_START, STUCK_START + 0.08, 0.92, 1],
     [0.7, 1, 1, 0.7]
   );
-
   const scaleBg = useTransform(scrollYProgress, [STUCK_START, 1], [0.98, 1.02]);
   const contentScale = useTransform(
     scrollYProgress,
@@ -188,41 +187,54 @@ export function Process() {
       ref={wrapperRef}
       id="process"
       className="relative"
-      style={{ height: "800vh" }}
+      style={{ height: "900vh" }}
     >
-      {/* Transparent spacer: scroll through this while fixed Hero stays visible */}
-      <div style={{ height: "100vh" }} aria-hidden />
+      {/* Spacer: scroll through before Process sticks */}
+      <div style={{ height: "200vh" }} aria-hidden />
 
-      {/* Sticky section: fixed yellow gradient background */}
+      {/* Full-viewport opaque layer: no rounded corners, prevents Hero bleed-through */}
+      <div
+        className="sticky top-0 z-20 h-screen w-full"
+        style={{
+          background:
+            "linear-gradient(180deg, var(--color-yellow-50) 0%, var(--color-yellow-100) 40%, var(--color-yellow-200) 100%)",
+        }}
+        aria-hidden
+      />
+
+      {/* Sticky section: rounded card on top; content fades, background layer stays */}
       <motion.section
         className="sticky top-0 z-20 h-screen overflow-hidden rounded-t-3xl border-t border-x border-black/[0.06] px-4 py-6 shadow-[0_-8px_32px_rgba(0,0,0,0.08),0_-2px_8px_rgba(0,0,0,0.04)] md:px-6 md:py-8"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 70% 30%, rgba(253,252,232,0.9), transparent 70%), linear-gradient(180deg, #fefce8 0%, #fdf8e7 40%, #fef9e0 100%)",
+            "radial-gradient(ellipse 80% 60% at 70% 30%, var(--color-yellow-100), transparent 70%), linear-gradient(180deg, var(--color-yellow-50) 0%, var(--color-yellow-100) 40%, var(--color-yellow-200) 100%)",
+          marginTop: "-100vh",
         }}
       >
-        {/* Yellow/amber decorative mesh (scale only when motion allowed) */}
+        {/* Yellow/amber decorative mesh — left column only so right-side cards stay clean */}
         <motion.div
-          className="pointer-events-none absolute inset-0 opacity-40"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 50% at 85% 20%, rgba(255,220,100,0.2) 0%, transparent 50%), radial-gradient(ellipse 80% 60% at 80% 40%, rgba(253,240,180,0.25) 0%, transparent 50%), radial-gradient(ellipse 50% 80% at 20% 80%, rgba(254,248,220,0.2) 0%, transparent 45%)",
-            scale: prefersReducedMotion ? scaleBgStatic : scaleBg,
-          }}
+          className="pointer-events-none absolute left-0 top-0 h-full w-[55%] overflow-hidden"
+          style={{ scale: prefersReducedMotion ? scaleBgStatic : scaleBg }}
           aria-hidden
-        />
-        <motion.div
-          className="pointer-events-none absolute inset-0 opacity-[0.06]"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(253,248,230,0.8) 0%, transparent 40%, transparent 60%, rgba(254,250,235,0.6) 100%)",
-          }}
-          aria-hidden
-        />
+        >
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              background:
+                "radial-gradient(ellipse 70% 50% at 85% 20%, rgba(253,224,71,0.2) 0%, transparent 50%), radial-gradient(ellipse 80% 60% at 80% 40%, var(--color-yellow-200) 0%, transparent 50%), radial-gradient(ellipse 50% 80% at 20% 80%, var(--color-yellow-100) 0%, transparent 45%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.06]"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(253,248,230,0.8) 0%, transparent 40%, transparent 60%, rgba(254,250,235,0.6) 100%)",
+            }}
+          />
+        </motion.div>
         <motion.div
           className="relative z-10 mx-auto flex h-full max-w-[1180px] flex-col gap-12 rounded-2xl py-8 pt-8 md:flex-row md:items-center md:gap-16 md:py-12 md:pt-10"
           style={{
-            opacity: descOpacity,
             scale: prefersReducedMotion ? contentScaleStatic : contentScale,
           }}
         >
@@ -244,7 +256,7 @@ export function Process() {
             <div className="relative">
               {/* Timeline spine */}
               <div
-                className="absolute bottom-8 left-[1.125rem] top-8 w-px bg-black/10 md:left-[1.375rem]"
+                className="absolute bottom-8 left-[1.125rem] top-8 w-px bg-[var(--color-yellow-300)]/40 md:left-[1.375rem]"
                 aria-hidden
               />
               <ul className="relative space-y-6 md:space-y-10">
@@ -264,7 +276,7 @@ export function Process() {
                         style={{ opacity: stepOpacities[i] }}
                       />
                       <motion.div
-                        className="h-2.5 w-2.5 rounded-full bg-[var(--color-hero-accent)] md:h-3 md:w-3"
+                        className="h-2.5 w-2.5 rounded-full bg-[var(--color-yellow-400)] md:h-3 md:w-3"
                         style={{ opacity: stepOpacities[i] }}
                         aria-hidden
                       />
@@ -307,17 +319,17 @@ export function Process() {
                     </div>
 
                     {/* Sub-mesh glow */}
-                    <div
-                      className="pointer-events-none absolute inset-0 opacity-50"
-                      style={{
-                        background:
-                          "radial-gradient(ellipse 80% 80% at 100% 0%, rgba(254,248,220,0.8) 0%, transparent 60%)",
-                      }}
-                      aria-hidden
-                    />
+                      <div
+                        className="pointer-events-none absolute inset-0 opacity-50"
+                        style={{
+                          background:
+                            "radial-gradient(ellipse 80% 80% at 100% 0%, var(--color-yellow-200) 0%, transparent 60%), radial-gradient(ellipse 60% 60% at 80% 20%, var(--color-yellow-100) 0%, transparent 50%)",
+                        }}
+                        aria-hidden
+                      />
 
                     <div className="relative z-10">
-                      <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-[var(--color-hero-accent)]/30 bg-[var(--color-hero-accent)]/10 px-5 py-2 text-sm font-bold uppercase tracking-widest text-[var(--color-ink)]">
+                      <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-[var(--color-yellow-500)]/30 bg-[var(--color-yellow-500)]/10 px-5 py-2 text-sm font-bold uppercase tracking-widest text-[var(--color-ink)]">
                         <span className="text-[var(--color-hero-accent)]">
                           Phase {step.num}
                         </span>
