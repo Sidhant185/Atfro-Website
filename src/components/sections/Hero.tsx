@@ -161,20 +161,13 @@ export function Hero() {
       >
         <BackgroundLayers />
 
-        <div className="relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] max-w-[1340px] flex-col items-center gap-8 px-6 pt-10 md:flex-row md:gap-6 md:pt-0">
+        <div className="relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] max-w-[1340px] flex-col items-center justify-center gap-8 px-8 py-12 md:flex-row md:gap-10 md:px-10 md:py-14">
 
         {/* ── Left: Copy ───────────────────────────────────────────────────── */}
-        <div className="flex-[0_0_48%] text-center md:text-left md:pr-6">
-          <motion.p
-            className="mb-5 inline-block rounded-full bg-[var(--color-hero-eyebrow)]/12 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--color-hero-eyebrow)]"
-            custom={0} initial="hidden" animate="visible" variants={stagger}
-          >
-            One Partner. Complete Growth.
-          </motion.p>
-
+        <div className="flex-[0_0_40%] text-center md:text-left md:pl-0 md:pr-8">
           <motion.h1
             className="text-[clamp(2.6rem,5vw,4.5rem)] font-extrabold leading-[1.18] tracking-[-0.03em] text-[var(--color-hero-text)]"
-            custom={1} initial="hidden" animate="visible" variants={stagger}
+            custom={0} initial="hidden" animate="visible" variants={stagger}
           >
             Your brand growth engine,{" "}
             <span className="relative inline-block">
@@ -191,7 +184,7 @@ export function Hero() {
 
           <motion.p
             className="mx-auto mt-7 max-w-md text-[1.05rem] leading-relaxed text-[var(--color-hero-muted)] md:mx-0"
-            custom={2} initial="hidden" animate="visible" variants={stagger}
+            custom={1} initial="hidden" animate="visible" variants={stagger}
           >
             Technology, marketing, and creative in one team. We help businesses
             in Pune and India go from invisible to unmissable.
@@ -199,7 +192,7 @@ export function Hero() {
 
           <motion.div
             className="mt-9 flex flex-col items-center gap-4 sm:flex-row md:items-start"
-            custom={3} initial="hidden" animate="visible" variants={stagger}
+            custom={2} initial="hidden" animate="visible" variants={stagger}
           >
             <Link href="#get-started">
               <motion.span
@@ -235,7 +228,10 @@ export function Hero() {
           {/* Social proof / trust strip + logo row */}
           <motion.div
             className="mt-8 flex flex-col items-center gap-3 md:items-start"
-            custom={4} initial="hidden" animate="visible" variants={stagger}
+            custom={3}
+            initial="hidden"
+            animate="visible"
+            variants={stagger}
           >
             <p className="text-xs font-medium text-[var(--color-hero-muted)]">
               Trusted by 50+ brands across India
@@ -256,15 +252,16 @@ export function Hero() {
 
         {/* ── Right: Phone ─────────────────────────────────────────────────── */}
         <div
-          className="relative flex flex-1 items-center justify-center md:justify-end md:items-center"
+          className="relative flex flex-[0_0_60%] items-center justify-center overflow-hidden md:justify-center"
           style={{ perspective: "1100px" }}
         >
           {/* Atmosphere layers (positioned relative to this container) */}
-          <div className="relative flex items-center justify-center">
+          <div className="relative flex max-w-full items-center justify-center">
             <PhoneGlowLayers />
 
             {/* 3-D tilt wrapper */}
             <motion.div
+              className="max-w-full"
               style={{
                 rotateX,
                 rotateY,
@@ -284,22 +281,19 @@ export function Hero() {
                 rotateZ: { duration: 12, repeat: Infinity, ease: "easeInOut" },
               }}
             >
-              {/* The phone image — large & proud (no glass/reflection overlay), 1.5x size, shifted ~20% left toward center */}
+              {/* Phone image — aligned and sized to fit column without overflow; no borders/shadows */}
               <div
-                className="relative w-full -translate-x-[20%]"
-                style={{
-                  width: "clamp(450px, 84vw, 960px)",
-                  filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.08)) drop-shadow(0 8px 24px rgba(0,0,0,0.06)) drop-shadow(0 60px 80px -24px rgba(0,0,0,0.08))",
-                }}
+                className="relative w-full max-w-full"
+                style={{ width: "clamp(320px, 50vw, 800px)" }}
               >
                 <Image
                   src="/images/Hero-section-1.png"
                   alt="Atfro growth dashboard"
-                  width={960}
-                  height={960}
+                  width={800}
+                  height={800}
                   className="h-auto w-full object-contain"
                   priority
-                  sizes="(max-width: 768px) 90vw, 960px"
+                  sizes="(max-width: 768px) 90vw, 50vw"
                 />
               </div>
             </motion.div>
