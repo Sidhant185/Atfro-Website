@@ -24,11 +24,11 @@ const NOISE_SVG =
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
 const stagger: Variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay: i * 0.09, ease: EASE },
+    transition: { duration: 0.5, delay: i * 0.06, ease: EASE },
   }),
 };
 
@@ -37,35 +37,35 @@ const stagger: Variants = {
 function BackgroundLayers() {
   return (
     <>
-      {/* Warm amber glow centred behind the phone */}
+      {/* Warm amber glow — subtle, minimal */}
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse 75% 70% at 68% 50%, rgba(255,185,0,0.22) 0%, transparent 65%)",
+            "radial-gradient(ellipse 70% 60% at 70% 48%, rgba(255,190,0,0.12) 0%, transparent 60%)",
         }}
-        animate={{ scale: [1, 1.06, 1], opacity: [1, 0.85, 1] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ opacity: [1, 0.92, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Soft top-left cool contrast accent */}
+      {/* Soft top-left accent — very subtle */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse 55% 45% at 10% 20%, rgba(200,220,255,0.08) 0%, transparent 60%)",
+            "radial-gradient(ellipse 50% 40% at 12% 18%, rgba(200,220,255,0.05) 0%, transparent 55%)",
         }}
       />
 
-      {/* Vertical vignette */}
+      {/* Vertical vignette — minimal */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(255,255,255,0.5) 0%, transparent 20%, transparent 80%, rgba(255,255,255,0.3) 100%)",
+            "linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 25%, transparent 75%, rgba(255,255,255,0.2) 100%)",
         }}
       />
 
@@ -82,23 +82,23 @@ function BackgroundLayers() {
 function PhoneGlowLayers() {
   return (
     <>
-      {/* Large outer bloom */}
+      {/* Outer bloom — soft, minimal */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-50 blur-[90px]"
+        className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-40 blur-[80px]"
         style={{
           background:
-            "radial-gradient(circle, rgba(255,190,0,0.28) 0%, rgba(255,160,0,0.1) 45%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,190,0,0.18) 0%, rgba(255,160,0,0.06) 50%, transparent 70%)",
         }}
       />
 
-      {/* Tight inner glow */}
+      {/* Inner glow — subtle */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-[15%] -z-10 rounded-full opacity-60 blur-[40px]"
+        className="pointer-events-none absolute inset-[20%] -z-10 rounded-full opacity-50 blur-[32px]"
         style={{
           background:
-            "radial-gradient(circle, rgba(255,200,50,0.3) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,200,50,0.15) 0%, transparent 65%)",
         }}
       />
 
@@ -125,8 +125,8 @@ export function Hero() {
   const smoothX = useSpring(mouseX, spring);
   const smoothY = useSpring(mouseY, spring);
 
-  const rotateY = useTransform(smoothX, [-1, 1], [-10, 8]);
-  const rotateX = useTransform(smoothY, [-1, 1], [4, -8]);
+  const rotateY = useTransform(smoothX, [-1, 1], [-6, 5]);
+  const rotateX = useTransform(smoothY, [-1, 1], [3, -5]);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -266,18 +266,18 @@ export function Hero() {
                 rotateY,
                 transformStyle: "preserve-3d",
               }}
-              initial={{ opacity: 0, scale: 0.88, y: 30 }}
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
               animate={{
                 opacity: 1,
                 scale: 1,
-                y: [0, -18, 0],
-                rotateZ: [0, 0.8, -0.6, 0],
+                y: [0, -10, 0],
+                rotateZ: [0, 0.4, -0.3, 0],
               }}
               transition={{
-                opacity: { duration: 0.8, delay: 0.2, ease: EASE },
-                scale:   { duration: 0.75, delay: 0.2, ease: EASE },
-                y:       { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                rotateZ: { duration: 9, repeat: Infinity, ease: "easeInOut" },
+                opacity: { duration: 0.65, delay: 0.15, ease: EASE },
+                scale:   { duration: 0.6, delay: 0.15, ease: EASE },
+                y:       { duration: 8, repeat: Infinity, ease: "easeInOut" },
+                rotateZ: { duration: 12, repeat: Infinity, ease: "easeInOut" },
               }}
             >
               {/* The phone image — large & proud (no glass/reflection overlay), 1.5x size, shifted ~20% left toward center */}
@@ -285,11 +285,11 @@ export function Hero() {
                 className="relative w-full -translate-x-[20%]"
                 style={{
                   width: "clamp(450px, 84vw, 960px)",
-                  filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.16)) drop-shadow(0 12px 28px rgba(0,0,0,0.1)) drop-shadow(0 80px 120px -20px rgba(0,0,0,0.12))",
+                  filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.08)) drop-shadow(0 8px 24px rgba(0,0,0,0.06)) drop-shadow(0 60px 80px -24px rgba(0,0,0,0.08))",
                 }}
               >
                 <Image
-                  src="/images/Hero-section-Photoroom.png"
+                  src="/images/Hero-section-1.png"
                   alt="Atfro growth dashboard"
                   width={960}
                   height={960}
