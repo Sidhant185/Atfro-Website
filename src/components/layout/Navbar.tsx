@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 const COMPANY_LINKS = [
   { label: "About", href: "#about" },
@@ -179,16 +180,30 @@ function MobileMenu({
   );
 }
 
+const EASE_NAV = [0.22, 1, 0.36, 1] as const;
+const TOP_STRIP_HEIGHT = 80;
+const HEADER_HEIGHT = 64;
+
+const AT_TOP_THRESHOLD = 50;
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [topHover, setTopHover] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isAtTop, setIsAtTop] = useState(true);
+
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 20);
+    setIsAtTop(latest < AT_TOP_THRESHOLD);
+  });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    onScroll();
-    const scrollOpts: AddEventListenerOptions = { passive: true };
-    window.addEventListener("scroll", onScroll, scrollOpts);
-    return () => window.removeEventListener("scroll", onScroll);
+    const check = () => setIsMobile(typeof window !== "undefined" && window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   useEffect(() => {
@@ -199,16 +214,29 @@ export function Navbar() {
     };
   }, [mobileOpen]);
 
+  const visible = isAtTop || topHover || isMobile;
+
   return (
     <>
-      <header
-        className={`sticky top-0 z-50 border-b transition-all duration-300 ${
+      {/* Hover zone: top strip + header when visible; cursor here reveals navbar (desktop only) */}
+      <div
+        className="fixed left-0 right-0 top-0 z-[60]"
+        style={{ height: visible ? TOP_STRIP_HEIGHT + HEADER_HEIGHT : TOP_STRIP_HEIGHT }}
+        aria-hidden
+        onMouseEnter={() => setTopHover(true)}
+        onMouseLeave={() => setTopHover(false)}
+      />
+      <motion.header
+        initial={false}
+        animate={{ y: visible ? "0%" : "-100%" }}
+        transition={{ duration: 0.35, ease: EASE_NAV }}
+        className={`sticky top-0 z-50 border-b ${
           scrolled
-            ? "border-[var(--color-hero-border)] bg-white/98 shadow-[0_1px_0_0_var(--color-hero-border)] backdrop-blur-md"
+            ? "border-[var(--color-hero-border)] bg-white shadow-sm backdrop-blur-md"
             : "border-transparent bg-white/90 backdrop-blur-sm"
         }`}
       >
-        <div className="section-content flex h-[4.25rem] items-center justify-between">
+        <div className="section-content flex h-16 items-center justify-between">
           <Link
             href="/"
             className="text-xl font-bold tracking-tight text-[var(--color-hero-text)] transition-opacity hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 rounded-md"
@@ -242,7 +270,11 @@ export function Navbar() {
             </Link>
             <Link
               href="#get-started"
-              className="hidden items-center gap-2 rounded-full bg-[var(--color-hero-accent)] px-5 py-2.5 text-sm font-semibold text-[var(--color-ink)] shadow-[0_2px_10px_rgba(245,197,24,0.3)] transition-all hover:scale-[1.02] hover:bg-[var(--color-hero-accent-hover)] hover:shadow-[0_4px_16px_rgba(245,197,24,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 md:inline-flex"
+              className={`hidden items-center gap-2 rounded-full bg-[var(--color-hero-accent)] px-5 py-2.5 text-sm font-semibold text-[var(--color-ink)] transition-all hover:scale-[1.02] hover:bg-[var(--color-hero-accent-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-hero-accent)] focus-visible:ring-offset-2 md:inline-flex ${
+                scrolled
+                  ? "shadow-[0_4px_14px_rgba(245,197,24,0.38)] hover:shadow-[0_6px_20px_rgba(245,197,24,0.45)]"
+                  : "shadow-[0_2px_10px_rgba(245,197,24,0.3)] hover:shadow-[0_4px_16px_rgba(245,197,24,0.4)]"
+              }`}
             >
               Book a Demo
               <span aria-hidden>→</span>
@@ -260,7 +292,7 @@ export function Navbar() {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>
