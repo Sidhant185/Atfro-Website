@@ -16,6 +16,8 @@
   --color-hero-accent-hover: #e5b508;
   --color-hero-eyebrow: #b45309;
   --color-hero-border: #e4e4e7;
+  /* Process card overlay */
+  --shadow-process-card: 0 -8px 32px rgba(0,0,0,0.08), 0 -2px 8px rgba(0,0,0,0.04);
 }
 
 @layer utilities {

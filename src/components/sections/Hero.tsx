@@ -150,14 +150,18 @@ export function Hero() {
   }, [mouseX, mouseY]);
 
   return (
-    <section
-      className="relative min-h-screen overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #ffffff 0%, #fdfcf7 40%, #f8f5e8 100%)" }}
-      onMouseLeave={() => { mouseX.set(0); mouseY.set(0); }}
+    <div
+      className="fixed inset-0 z-[10] h-screen w-full"
+      aria-hidden={false}
     >
-      <BackgroundLayers />
+      <section
+        className="relative h-full min-h-screen overflow-hidden"
+        style={{ background: "linear-gradient(160deg, #ffffff 0%, #fdfcf7 40%, #f8f5e8 100%)" }}
+        onMouseLeave={() => { mouseX.set(0); mouseY.set(0); }}
+      >
+        <BackgroundLayers />
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] max-w-[1340px] flex-col items-center gap-8 px-6 pt-10 md:flex-row md:gap-6 md:pt-0">
+        <div className="relative z-10 mx-auto flex min-h-[calc(100vh-4rem)] max-w-[1340px] flex-col items-center gap-8 px-6 pt-10 md:flex-row md:gap-6 md:pt-0">
 
         {/* ── Left: Copy ───────────────────────────────────────────────────── */}
         <div className="flex-[0_0_48%] text-center md:text-left md:pr-6">
@@ -301,7 +305,8 @@ export function Hero() {
             </motion.div>
           </div>
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   );
 }
