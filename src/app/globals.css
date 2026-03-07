@@ -6,6 +6,26 @@
   --color-ink: #0A0A0A;
   --color-canvas: #ffffff;
   --color-yellow: #F5C518;
+  --color-yellow-dim: rgba(245, 197, 24, 0.12);
+  /* Hero: yellow + white theme */
+  --color-hero-bg: #ffffff;
+  --color-hero-surface: #fafafa;
+  --color-hero-text: #0A0A0A;
+  --color-hero-muted: #52525b;
+  --color-hero-accent: #F5C518;
+  --color-hero-accent-hover: #e5b508;
+  --color-hero-eyebrow: #b45309;
+  --color-hero-border: #e4e4e7;
+}
+
+@layer utilities {
+  .section-content {
+    max-width: 72rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 
 @layer base {
