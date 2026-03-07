@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Space_Mono } from "next/font/google";
+import { Navbar } from "@/components/layout/Navbar";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -29,9 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfit.variable} ${spaceMono.variable} min-h-screen bg-white font-sans text-[#0A0A0A] antialiased`}
+        className={`${outfit.variable} ${spaceMono.variable} min-h-screen font-sans text-[var(--color-ink)] antialiased`}
       >
-        {children}
+        <Navbar />
+        <main className="grow">{children}</main>
       </body>
     </html>
   );
