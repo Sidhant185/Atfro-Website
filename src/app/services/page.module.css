@@ -1,6 +1,6 @@
 .headerSection {
-  padding-top: 9rem;
-  padding-bottom: 3rem;
+  padding-top: 4.5rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid var(--border);
 }
 
@@ -9,122 +9,100 @@
   max-width: 800px;
 }
 
-.systemsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  padding: 3rem 0;
+.cardsSection {
+  padding: 4rem 0;
+  background: radial-gradient(circle at top right, #fafafa 0%, #ffffff 70%);
 }
 
-.systemRow {
+.cardGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.5rem;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 4rem;
+  gap: 1.5rem;
 }
 
-.systemRow:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+@media (min-width: 768px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.systemMeta {
-  position: relative;
-}
-
-.systemNum {
+.serviceCard {
   display: block;
-  margin-bottom: 1rem;
-  color: var(--primary);
-  font-family: var(--font-family-display);
-  font-size: 1.25rem;
-}
-
-.systemTitle {
-  margin-bottom: 0;
-  line-height: 1.1;
-  max-width: 400px;
-}
-
-.stickyMeta {
-  position: sticky;
-  top: 7rem;
-}
-
-.systemDesc {
-  font-size: 1.25rem;
-  margin-bottom: 3rem;
-}
-
-.deliverablesBox {
   background: #ffffff;
   border: 1px solid var(--border);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
   border-radius: 1rem;
-  padding: 3.5rem;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  padding: 2.5rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
 }
 
-.deliverablesBox:hover {
-  transform: translateY(-3px);
+.serviceCard:hover {
+  transform: translateY(-4px);
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
-  border-color: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
-.deliverablesTitle {
-  margin-bottom: 2rem;
+.cardNumber {
+  display: block;
+  font-family: var(--font-family-display);
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--primary);
+  margin-bottom: 1rem;
 }
 
-.featureList {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 1.5rem;
+.cardTitle {
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
-.featureList li {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  font-size: 1.125rem;
+.cardDesc {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
   color: var(--text-color);
 }
 
-.checkIcon {
+.learnMore {
+  font-size: 0.9375rem;
+  font-weight: 600;
   color: var(--primary);
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 1;
+  opacity: 0.9;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.serviceCard:hover .learnMore {
+  opacity: 1;
+  transform: translateX(4px);
 }
 
 .ctaSection {
-  background-color: var(--accent);
-  text-align: center;
-  border-top: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
 }
 
-.ctaText {
-  margin-bottom: 2rem;
-  font-size: 1.25rem;
-}
-
-.actions {
+.ctaSection::before {
+  content: "Architecture";
+  position: absolute;
+  inset: 0;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  font-size: clamp(6rem, 15vw, 12rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  opacity: 0.04;
+  pointer-events: none;
 }
 
-.systemContent {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-@media (min-width: 1024px) {
-  .systemRow {
-    grid-template-columns: 1fr 1.5fr;
-    gap: 6rem;
-  }
+.ctaSection .ctaText,
+.ctaSection .actions,
+.ctaSection h3,
+.ctaSection p {
+  position: relative;
+  z-index: 1;
 }
