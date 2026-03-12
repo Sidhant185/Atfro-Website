@@ -18,6 +18,19 @@ const caseStudyData: Record<string, any> = {
     title: 'SaaS Startup Transformation',
     client: 'Growth-stage SaaS startup',
     challenge: 'A technically strong product struggling to translate product capability into consistent market traction.',
+    metrics: [
+      { value: '3x', label: 'Lead pipeline growth', sub: 'Structured funnels' },
+      { value: 'Centralized', label: 'CRM & visibility', sub: 'From manual tracking' },
+      { value: 'Founder time', label: 'Freed for product', sub: 'Less manual ops' },
+    ],
+    timeline: [
+      { phase: 'Weeks 1–2', desc: 'Diagnostic audit across funnels, brand, and tech stack.' },
+      { phase: 'Weeks 3–4', desc: 'Strategy formulation and 4-pillar roadmap.' },
+      { phase: 'Months 2–3', desc: 'CRM implementation, lead routing, and dashboards.' },
+      { phase: 'Ongoing', desc: 'Campaign management and optimization.' },
+    ],
+    testimonial: 'ATFRO gave us a single source of truth for every lead. We went from spreadsheets to a real pipeline in weeks.',
+    testimonialRole: 'Founder, SaaS Startup',
     sections: [
       {
         heading: 'Initial Challenges',
@@ -64,6 +77,19 @@ const caseStudyData: Record<string, any> = {
     title: 'Sattvahar — Website Development & Digital Foundation',
     client: 'Sattvahar (sattvahar.in)',
     challenge: 'Establishing a strong digital presence to represent the brand online and serve as a foundation for future growth.',
+    metrics: [
+      { value: 'Live', label: 'Digital presence', sub: 'Brand platform' },
+      { value: 'Optimized', label: 'Performance & UX', sub: 'Mobile-first' },
+      { value: 'Scalable', label: 'Foundation ready', sub: 'Future marketing' },
+    ],
+    timeline: [
+      { phase: 'Discovery', desc: 'Brand philosophy, audience, and product mapping.' },
+      { phase: 'Architecture', desc: 'Information structure and page hierarchy.' },
+      { phase: 'Design & Build', desc: 'Visual design, responsive UX, and performance optimization.' },
+      { phase: 'Launch', desc: 'Go-live and handover for future marketing.' },
+    ],
+    testimonial: 'The site now truly reflects who we are. Clean, calm, and ready to grow with us.',
+    testimonialRole: 'Sattvahar Team',
     sections: [
       {
         heading: 'Initial Challenges',
@@ -115,6 +141,8 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
     notFound();
   }
 
+  const metrics = data.metrics || [];
+
   return (
     <>
       <section className={styles.postHeader}>
@@ -130,10 +158,43 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
         </div>
       </section>
 
-      <section className="section">
+      {metrics.length > 0 && (
+        <section className={styles.metricsHero}>
+          <div className="container">
+            <div className={styles.metricsGrid}>
+              {metrics.map((m: { value: string; label: string; sub: string }, i: number) => (
+                <FadeIn key={i} direction="up" delay={i * 0.1}>
+                  <div className={styles.metricCard}>
+                    <span className={styles.metricValue}>{m.value}</span>
+                    <span className={styles.metricLabel}>{m.label}</span>
+                    <span className={styles.metricSub}>{m.sub}</span>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="section" style={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}>
         <article className={`container ${styles.postContent}`}>
+          {data.timeline && data.timeline.length > 0 && (
+            <FadeIn direction="up" delay={0.05}>
+              <div className={styles.contentBlock}>
+                <Typography variant="h3" className={styles.sectionHeading}>Project timeline</Typography>
+                <div className={styles.timeline}>
+                  {data.timeline.map((item: { phase: string; desc: string }, i: number) => (
+                    <div key={i} className={styles.timelineItem}>
+                      <div className={styles.timelinePhase}>{item.phase}</div>
+                      <div className={styles.timelineDesc}>{item.desc}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+          )}
           {data.sections.map((section: any, idx: number) => (
-            <FadeIn key={idx} direction="up" delay={idx * 0.1}>
+            <FadeIn key={idx} direction="up" delay={(idx + 1) * 0.1}>
               <div className={styles.contentBlock}>
                 <Typography variant="h3" className={styles.sectionHeading}>{section.heading}</Typography>
                 {section.content.map((para: string, pIdx: number) => (
@@ -144,13 +205,27 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
               </div>
             </FadeIn>
           ))}
+          {data.testimonial && (
+            <FadeIn direction="up" delay={0.2}>
+              <div className={styles.contentBlock}>
+                <Typography variant="h3" className={styles.sectionHeading}>What the client said</Typography>
+                <blockquote className={styles.testimonial}>
+                  &ldquo;{data.testimonial}&rdquo;
+                  {data.testimonialRole && <div className={styles.testimonialAttribution}>— {data.testimonialRole}</div>}
+                </blockquote>
+              </div>
+            </FadeIn>
+          )}
         </article>
       </section>
 
-      <section className={`section ${styles.ctaSection}`}>
+      <section className="ctaSection">
         <div className="container">
            <Typography variant="h3">Ready for your transformation?</Typography>
-           <div className={styles.actions}>
+           <Typography variant="p" className="ctaText">
+             We build systems that deliver measurable outcomes. Start with a diagnostic audit.
+           </Typography>
+           <div className="actions">
              <Link href="/contact" tabIndex={-1}>
                <Button variant="primary" size="lg">Start Building</Button>
              </Link>
