@@ -1,12 +1,48 @@
 .headerSection {
-  padding-top: 12rem;
-  padding-bottom: 4rem;
+  padding-top: 9rem;
+  padding-bottom: 3rem;
   border-bottom: 1px solid var(--border);
 }
 
 .leadText {
   font-size: 1.25rem;
   max-width: 800px;
+}
+
+.casesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 4rem 0;
+}
+
+.caseCard {
+  display: block;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 2.5rem 2rem;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.caseCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.5rem;
+}
+
+.metricBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .featuredLabel {
@@ -30,16 +66,17 @@
 .metricCard {
   background: #ffffff;
   border: 1px solid var(--border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
   border-radius: 1rem;
   padding: 3.5rem 2rem;
   text-align: center;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .metricCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.06);
 }
 
 .metricValue {
@@ -53,6 +90,38 @@
 
 .metricLabel {
   font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.clientName {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.caseTitle {
+  margin-bottom: 0.5rem;
+}
+
+.tagsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--bg-color);
   color: var(--text-muted);
 }
 
@@ -137,6 +206,10 @@
 }
 
 @media (min-width: 768px) {
+  .casesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .metricsGrid {
     grid-template-columns: repeat(3, 1fr);
   }
