@@ -1,6 +1,6 @@
 .headerSection {
-  padding-top: 12rem;
-  padding-bottom: 4rem;
+  padding-top: 9rem;
+  padding-bottom: 3rem;
   border-bottom: 1px solid var(--border);
 }
 
@@ -12,25 +12,25 @@
 .blogGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
-  padding: 4rem 0;
+  gap: 1.75rem;
+  padding: 3rem 0;
 }
 
 .blogCard {
   display: block;
-  background: rgba(255, 255, 255, 0.02);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 1.5rem;
   padding: 2.5rem;
   text-decoration: none;
-  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   height: 100%;
 }
 
 .blogCard:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-3px);
+  border-color: rgba(0, 0, 0, 0.06);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
 }
 
 .cardHeader {
@@ -38,7 +38,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 1rem;
 }
 
