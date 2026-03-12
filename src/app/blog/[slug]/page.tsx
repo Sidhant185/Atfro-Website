@@ -8,8 +8,19 @@ import styles from './page.module.css';
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
+  const post = blogData[resolvedParams.slug];
+  if (!post) return { title: "Post | ATFRO Insights" };
+  const title = post.title;
+  const description =
+    post.content?.find((b: any) => b.type === "p")?.text?.slice(0, 160) + "…" ||
+    "ATFRO insights on transformation architecture, growth, and operations.";
+  const url = `https://atfro.in/blog/${resolvedParams.slug}`;
   return {
-    title: `${resolvedParams.slug.replace(/-/g, ' ')} | ATFRO Insights`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { url, title, description, type: "article" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -144,8 +155,25 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     notFound();
   }
 
+  const articleUrl = `https://atfro.in/blog/${resolvedParams.slug}`;
+  const datePublished = (post as any).datePublished || "2026-03-01";
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    author: { "@type": "Organization", name: "ATFRO" },
+    datePublished,
+    dateModified: datePublished,
+    url: articleUrl,
+    publisher: { "@type": "Organization", name: "ATFRO", url: "https://atfro.in" },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <article className={styles.article}>
         <section className={styles.postHeader}>
           <div className="container">
@@ -165,25 +193,56 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           </div>
         </section>
 
-        <section className={`section ${styles.postBodyWrapper}`}>
+        <section className={`section ${styles.postBodyWrapper}`} style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
           <div className={`container ${styles.postContent}`}>
-            {post.content.map((block: any, idx: number) => (
-              <FadeIn key={idx} direction="up" delay={idx * 0.05}>
-                {block.type === 'h2' ? (
-                  <Typography variant="h2" className={styles.heading2}>{block.text}</Typography>
-                ) : (
-                  <Typography variant="p" className={styles.paragraph}>{block.text}</Typography>
-                )}
-              </FadeIn>
-            ))}
+            {(() => {
+              const tocItems = post.content.filter((b: any) => b.type === 'h2').map((b: any) => ({
+                text: b.text,
+                id: b.text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+              }));
+              return (
+                <>
+                  {tocItems.length > 0 && (
+                    <nav className={styles.toc} aria-label="Table of contents">
+                      <div className={styles.tocTitle}>On this page</div>
+                      <ul className={styles.tocList}>
+                        {tocItems.map((item: { text: string; id: string }) => (
+                          <li key={item.id}>
+                            <a href={`#${item.id}`}>{item.text}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    </nav>
+                  )}
+                  {post.content.map((block: any, idx: number) => {
+                    if (block.type === 'h2') {
+                      const id = block.text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                      return (
+                        <FadeIn key={idx} direction="up" delay={idx * 0.05}>
+                          <h2 id={id} className={styles.heading2}>{block.text}</h2>
+                        </FadeIn>
+                      );
+                    }
+                    return (
+                      <FadeIn key={idx} direction="up" delay={idx * 0.05}>
+                        <Typography variant="p" className={styles.paragraph}>{block.text}</Typography>
+                      </FadeIn>
+                    );
+                  })}
+                </>
+              );
+            })()}
           </div>
         </section>
       </article>
 
-      <section className={`section ${styles.ctaSection}`}>
+      <section className="ctaSection">
         <div className="container">
            <Typography variant="h3">Want to apply these systems to your business?</Typography>
-           <div className={styles.actions}>
+           <Typography variant="p" className="ctaText">
+             Our team turns insights into systems. Start with a diagnostic audit and a clear roadmap.
+           </Typography>
+           <div className="actions">
              <Link href="/contact" tabIndex={-1}>
                <Button variant="primary" size="lg">Discuss a Partnership</Button>
              </Link>
