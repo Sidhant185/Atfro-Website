@@ -12,53 +12,33 @@ export const metadata: Metadata = {
 
 const pillars = [
   {
-    id: 'tech',
+    id: 'technology',
     number: '01',
     title: 'Technology Infrastructure',
     description: 'The operational backbone. We build the systems required to handle volume without manual friction.',
-    deliverables: [
-      'Custom CRM implementation and data migration',
-      'Automated lead routing and follow-up workflows',
-      'Dynamic performance and analytics dashboards',
-      'API integrations between fragmented software tools'
-    ]
+    href: '/services/technology',
   },
   {
     id: 'growth',
     number: '02',
     title: 'Growth & Marketing',
     description: 'Replacing sporadic activity with reliable, predictable systems for lead generation and acquisition.',
-    deliverables: [
-      'End-to-end conversion funnel architecture',
-      'Targeted paid advertising strategies using audience segmentation',
-      'Technical SEO and organic content roadmaps',
-      'Automated email nurture sequences'
-    ]
+    href: '/services/growth',
   },
   {
     id: 'brand',
     number: '03',
     title: 'Brand Positioning',
     description: 'The foundation of credibility. We ensure your market understands exactly why you are the superior choice.',
-    deliverables: [
-      'Differentiated market positioning strategy',
-      'Conversion-optimized website design and development',
-      'Core brand messaging and sales narratives',
-      'Visual identity and brand architecture systems'
-    ]
+    href: '/services/brand',
   },
   {
-    id: 'experience',
+    id: 'programs',
     number: '04',
     title: 'Programs & Experience',
     description: 'Delivering at scale. We design operational frameworks for customer engagement and retention.',
-    deliverables: [
-      'Automated customer onboarding workflows',
-      'Customer success frameworks to reduce churn',
-      'Long-term loyalty and client retention programs',
-      'Referral and advocacy loop design'
-    ]
-  }
+    href: '/services/programs',
+  },
 ];
 
 export default function ServicesPage() {
@@ -76,47 +56,31 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className={styles.cardsSection}>
         <div className="container">
-          <div className={styles.systemsContainer}>
-            {pillars.map((pillar) => (
-              <div key={pillar.id} className={styles.systemRow}>
-                <FadeIn direction="right" delay={0.1} className={styles.systemMeta}>
-                  <div className={styles.stickyMeta}>
-                    <Typography variant="caption" className={styles.systemNum}>{pillar.number}</Typography>
-                    <Typography variant="h2" className={styles.systemTitle}>{pillar.title}</Typography>
-                  </div>
-                </FadeIn>
-                
-                <FadeIn direction="left" delay={0.2} className={styles.systemContent}>
-                  <Typography variant="p" className={styles.systemDesc}>{pillar.description}</Typography>
-                  
-                  <div className={styles.deliverablesBox}>
-                     <Typography variant="h4" className={styles.deliverablesTitle}>Tangible Deliverables</Typography>
-                     <ul className={styles.featureList}>
-                      {pillar.deliverables.map((feature, i) => (
-                        <li key={i}>
-                          <span className={styles.checkIcon}>&rsaquo;</span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </FadeIn>
-              </div>
+          <div className={styles.cardGrid}>
+            {pillars.map((pillar, i) => (
+              <FadeIn key={pillar.id} delay={i * 0.1}>
+                <Link href={pillar.href} className={styles.serviceCard}>
+                  <span className={styles.cardNumber}>{pillar.number}</span>
+                  <Typography variant="h3" className={styles.cardTitle}>{pillar.title}</Typography>
+                  <Typography variant="p" className={styles.cardDesc}>{pillar.description}</Typography>
+                  <span className={styles.learnMore}>Learn More &rarr;</span>
+                </Link>
+              </FadeIn>
             ))}
           </div>
         </div>
       </section>
 
-      <section className={`section ${styles.ctaSection}`}>
+      <section className={`ctaSection ${styles.ctaSection}`}>
         <div className="container">
           <FadeIn direction="up">
             <Typography variant="h3">How do these systems apply to your business?</Typography>
-            <Typography variant="p" className={styles.ctaText}>
+            <Typography variant="p" className="ctaText">
               Review our 7-stage process to see exactly how we diagnose, build, and deploy these architectures.
             </Typography>
-            <div className={styles.actions}>
+            <div className="actions">
               <Link href="/process" tabIndex={-1}>
                 <Button variant="primary" size="lg">View The Process</Button>
               </Link>
