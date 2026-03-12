@@ -3,13 +3,22 @@
   --bg-color: #ffffff;
   --bg-subtle: #fafafa;
 
+  /* Subtle gradients to reduce white monotony */
+  --bg-gradient-subtle: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  --bg-gradient-soft: radial-gradient(circle at top left, #f8f9fa 0%, #ffffff 60%);
+  --bg-gradient-soft-right: radial-gradient(circle at top right, #fafafa 0%, #ffffff 70%);
+  --bg-gradient-diagonal: linear-gradient(145deg, #f8f9fa 0%, #ffffff 45%, #fafafa 100%);
+  --bg-pattern-dots: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.04) 1px, transparent 0);
+
   --text-color: #0a0a0a;
   --text-muted: #737373;
 
   --primary: #000000;
   --primary-soft: #111111;
-  --accent: #111111;
-  --accent-hover: #1f1f1f;
+  --accent: #f5f5f5;
+  --accent-hover: #ebebeb;
+  --dark: #000000;
+  --dark-text: #ffffff;
 
   --border: #e5e5e5;
 
@@ -119,6 +128,104 @@ button {
 
 .section {
   padding: var(--section-padding) 0;
+}
+
+/* Alternate section backgrounds for visual rhythm */
+.sectionAlt {
+  background: var(--bg-gradient-subtle);
+}
+
+.sectionSoft {
+  background: var(--bg-gradient-soft);
+}
+
+.sectionSoftRight {
+  background: var(--bg-gradient-soft-right);
+}
+
+.sectionDiagonal {
+  background: var(--bg-gradient-diagonal);
+}
+
+.sectionPattern {
+  background-color: #ffffff;
+  background-image: var(--bg-pattern-dots);
+  background-size: 24px 24px;
+}
+
+/* Decorative background text for sections (use with .sectionBgText and data-bgtext="…") */
+.sectionBgText {
+  position: relative;
+  overflow: hidden;
+}
+
+.sectionBgText::after {
+  content: attr(data-bgtext);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(6rem, 15vw, 12rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  opacity: 0.02;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* CTA Section - above footer, all pages (consistent dark styling + contrast) */
+.ctaSection {
+  background-color: var(--dark);
+  color: var(--dark-text);
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  padding: 3rem 0;
+}
+
+.ctaSection h2,
+.ctaSection h3,
+.ctaSection p,
+.ctaSection .ctaText,
+.ctaSection .actions {
+  color: var(--dark-text);
+  position: relative;
+  z-index: 1;
+}
+
+.ctaSection a {
+  color: var(--dark-text);
+}
+
+.ctaSection .container {
+  position: relative;
+  z-index: 1;
+}
+
+.ctaSection .ctaText {
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  opacity: 0.9;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaSection .actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.ctaSection .actions a,
+.ctaSection .actions button {
+  color: var(--dark-text);
+}
+
+.ctaSection .actions button {
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Utilities */
