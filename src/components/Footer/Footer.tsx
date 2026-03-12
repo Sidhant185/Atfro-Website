@@ -1,7 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
-import { Typography } from '@/components/Typography/Typography';
-import styles from './Footer.module.css';
+import React from "react";
+import Link from "next/link";
+import { Typography } from "@/components/Typography/Typography";
+import styles from "./Footer.module.css";
 
 export const Footer = () => {
   return (
@@ -52,8 +52,12 @@ export const Footer = () => {
             &copy; {new Date().getFullYear()} ATFRO. All rights reserved.
           </Typography>
           <div className={styles.legal}>
-             <Typography variant="caption"><Link href="/">Privacy Policy</Link></Typography>
-             <Typography variant="caption"><Link href="/">Terms of Service</Link></Typography>
+            <Typography variant="caption">
+              <Link href="/privacy-policy">Privacy Policy</Link>
+            </Typography>
+            <Typography variant="caption">
+              <Link href="/terms-of-service">Terms of Service</Link>
+            </Typography>
           </div>
         </div>
       </div>
