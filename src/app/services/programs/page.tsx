@@ -30,6 +30,35 @@ export const metadata: Metadata = {
   },
 };
 
+const features = [
+  {
+    number: "01",
+    title: "Fix the leaky bucket first.",
+    description:
+      "Scaling acquisition on top of weak onboarding and retention is expensive. We first stabilize the post-purchase journey so every new customer has a clear, guided path to ongoing value.",
+  },
+  {
+    number: "02",
+    title: "Time-to-value as the core metric.",
+    description:
+      "We reduce the time between sign-up and the first undeniable moment of value. When customers experience meaningful outcomes quickly, retention and expansion follow naturally.",
+  },
+  {
+    number: "03",
+    title: "Programs built with systems, not heroics.",
+    description:
+      "Instead of relying on a few overextended team members, we design programs that are supported by automations, content, and clear operational playbooks.",
+  },
+];
+
+const deliverables = [
+  "Onboarding journeys mapped from purchase to first value",
+  "In-product and out-of-product education programs",
+  "Customer success playbooks and escalation paths",
+  "Renewal, expansion, and advocacy campaigns",
+  "Feedback loops that inform product and marketing",
+];
+
 export default function ProgramsServicesPage() {
   const breadcrumbItems = [
     { label: "Home", href: "/" },
@@ -56,73 +85,53 @@ export default function ProgramsServicesPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className={styles.contentSection}>
         <div className="container">
-          <div className={styles.layout}>
-            <aside className={styles.sidebar}>
-              <span className={styles.tag}>Deliverables</span>
-              <Typography variant="h4" className={styles.listTitle}>
+          <div className={styles.featureGrid}>
+            {features.map((feature, i) => (
+              <FadeIn key={feature.number} delay={i * 0.1}>
+                <div className={styles.featureCard}>
+                  <span className={styles.featureNumber}>{feature.number}</span>
+                  <Typography variant="h3" className={styles.featureTitle}>
+                    {feature.title}
+                  </Typography>
+                  <Typography variant="p" className={styles.featureDesc}>
+                    {feature.description}
+                  </Typography>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <FadeIn direction="up" delay={0.3}>
+            <div className={styles.deliverablesCard}>
+              <Typography variant="caption" className={styles.deliverablesTag}>
+                Deliverables
+              </Typography>
+              <Typography variant="h4" className={styles.deliverablesTitle}>
                 What we operationalize.
               </Typography>
-              <ul className={styles.list}>
-                <li>Onboarding journeys mapped from purchase to first value</li>
-                <li>In-product and out-of-product education programs</li>
-                <li>Customer success playbooks and escalation paths</li>
-                <li>Renewal, expansion, and advocacy campaigns</li>
-                <li>Feedback loops that inform product and marketing</li>
+              <ul className={styles.deliverablesList}>
+                {deliverables.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
-            </aside>
-
-            <div className={styles.body}>
-              <FadeIn direction="up" delay={0.1} className={styles.highlight}>
-                <Typography variant="h3">
-                  Fix the leaky bucket first.
-                </Typography>
-                <Typography variant="p">
-                  Scaling acquisition on top of weak onboarding and retention is
-                  expensive. We first stabilize the post-purchase journey so
-                  every new customer has a clear, guided path to ongoing value.
-                </Typography>
-              </FadeIn>
-
-              <FadeIn direction="up" delay={0.2}>
-                <Typography variant="h4">
-                  Time-to-value as the core metric.
-                </Typography>
-                <Typography variant="p">
-                  We reduce the time between sign-up and the first undeniable
-                  moment of value. When customers experience meaningful outcomes
-                  quickly, retention and expansion follow naturally.
-                </Typography>
-              </FadeIn>
-
-              <FadeIn direction="up" delay={0.3}>
-                <Typography variant="h4">
-                  Programs built with systems, not heroics.
-                </Typography>
-                <Typography variant="p">
-                  Instead of relying on a few overextended team members, we
-                  design programs that are supported by automations, content,
-                  and clear operational playbooks.
-                </Typography>
-              </FadeIn>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
-      <section className={`section ${styles.ctaSection}`}>
+      <section className="ctaSection">
         <div className="container">
           <FadeIn direction="up">
             <Typography variant="h2">
               Want customers who stay, grow, and refer?
             </Typography>
-            <Typography variant="p" className={styles.ctaText}>
+            <Typography variant="p" className="ctaText">
               Combine our programs and experience architecture with your
               existing demand engine to build a compounding, long-term revenue
               machine.
             </Typography>
-            <div className={styles.actions}>
+            <div className="actions">
               <Link href="/case-studies" tabIndex={-1}>
                 <Button variant="secondary" size="lg">
                   See Retention in Action
@@ -140,4 +149,3 @@ export default function ProgramsServicesPage() {
     </>
   );
 }
-
