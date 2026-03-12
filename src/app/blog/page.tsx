@@ -9,28 +9,27 @@ export const metadata: Metadata = {
   description: 'Research, insights, and structural methodologies from the ATFRO team.',
 };
 
-// Placeholder for future CMS integration
 const blogPosts = [
   {
-    slug: 'why-startups-fail-at-scale',
-    title: 'Why Startups Fail at Scale (And How to Fix It)',
-    category: 'Operations',
-    date: 'March 15, 2026',
-    excerpt: 'A deep dive into the operational bottlenecks that prevent product-market fit from translating into sustainable revenue growth.',
+    slug: 'the-architecture-of-scale',
+    title: 'The Architecture of Scale: Why Your Tech Stack is Bleeding Revenue',
+    category: 'Technology & Ops',
+    date: 'March 10, 2026',
+    excerpt: 'At ATFRO, we do not just build websites or set up CRMs. We architect centralized nervous systems that drive predictive revenue.',
   },
   {
-    slug: 'the-end-of-growth-hacks',
-    title: 'The End of "Growth Hacks": Building Predictable Funnels',
-    category: 'Marketing',
-    date: 'March 02, 2026',
-    excerpt: 'Why tacticals tricks no longer work and how to build a unified system that generates high-quality leads consistently.',
+    slug: 'positioning-over-tactics',
+    title: 'Positioning Over Tactics: The Death of Generic B2B Marketing',
+    category: 'Brand & Growth',
+    date: 'March 05, 2026',
+    excerpt: 'If your brand looks, sounds, and acts like your competitors, you are competing purely on price. And competing on price is a race to the bottom.',
   },
   {
-    slug: 'architecting-brand-credibility',
-    title: 'Architecting Brand Credibility in B2B SaaS',
-    category: 'Brand',
-    date: 'February 18, 2026',
-    excerpt: 'How to position your technical product so that non-technical decision-makers understand the ultimate business value.',
+    slug: 'the-churn-paradox',
+    title: 'The Churn Paradox: Why Onboarding is More Important Than Acquisition',
+    category: 'Customer Success',
+    date: 'February 28, 2026',
+    excerpt: 'It costs significantly more to acquire a new customer than it does to retain an existing one. Stop pouring leads into a leaky bucket.',
   }
 ];
 
