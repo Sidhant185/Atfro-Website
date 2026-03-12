@@ -5,10 +5,12 @@
   font-family: var(--font-family-sans);
   font-weight: 500;
   border-radius: 9999px; /* Pill shape for premium feel */
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.18s ease,
+    box-shadow 0.18s ease;
   position: relative;
   overflow: hidden;
   white-space: nowrap;
+  min-height: 44px;
 }
 
 .base:disabled {
@@ -20,12 +22,18 @@
 /* Variants */
 .primary {
   background-color: var(--primary);
-  color: #000;
+  color: #ffffff;
 }
 
 .primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  background-color: var(--primary-soft);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.primary:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .secondary {
@@ -38,6 +46,11 @@
   background-color: var(--accent-hover);
 }
 
+.secondary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
 .outline {
   background-color: transparent;
   color: var(--text-color);
@@ -47,6 +60,11 @@
 .outline:hover {
   background-color: var(--primary);
   color: #000;
+}
+
+.outline:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .ghost {

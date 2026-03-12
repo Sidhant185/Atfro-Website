@@ -1,22 +1,39 @@
 import type { Metadata } from "next";
-import { Manrope, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Footer } from "@/components/Footer/Footer";
 
-const manrope = Manrope({
+const siteUrl = "https://atfro.in";
+
+const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-serif",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "ATFRO | Architecting Transformations For Robust Outcomes",
-  description: "The Brand That Builds Brands.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "ATFRO — Architecting Transformations For Robust Outcomes",
+    template: "%s | ATFRO",
+  },
+  description:
+    "ATFRO architects transformation systems across technology, growth, brand, and operations so startups can scale without chaos.",
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName: "ATFRO",
+    title: "ATFRO — Architecting Transformations For Robust Outcomes",
+    description:
+      "A transformation architecture firm that builds the systems, brand, and growth infrastructure for scalable businesses.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ATFRO — Architecting Transformations For Robust Outcomes",
+    description:
+      "Systems-first consulting for startups and growth-stage companies ready for structured, scalable growth.",
+  },
 };
 
 export default function RootLayout({
@@ -26,10 +43,43 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} ${playfair.variable}`} style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-        <Navbar />
+      <body
+        className={inter.variable}
+        style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+      >
+        {/* Organization & Service Schema */}
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": ["Organization", "ProfessionalService"],
+              name: "ATFRO",
+              url: siteUrl,
+              description:
+                "ATFRO architects transformation systems across technology, growth, brand, and programs for scaling businesses.",
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "IN",
+              },
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  email: "hello@atfro.in",
+                  contactType: "sales",
+                },
+              ],
+            }),
+          }}
+        />
+        <header>
+          <Navbar />
+        </header>
         <main style={{ flex: 1 }}>{children}</main>
-        <Footer />
+        <footer>
+          <Footer />
+        </footer>
       </body>
     </html>
   );
