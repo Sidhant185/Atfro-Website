@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Footer } from "@/components/Footer/Footer";
+import { GoogleAnalytics } from "@/components/Analytics/GoogleAnalytics";
 
 const siteUrl = "https://atfro.in";
 
@@ -20,6 +21,16 @@ export const metadata: Metadata = {
   },
   description:
     "ATFRO architects transformation systems across technology, growth, brand, and operations so startups can scale without chaos.",
+  robots: "index, follow",
+  authors: [{ name: "ATFRO Team", url: siteUrl }],
+  keywords: [
+    "business transformation",
+    "startup scaling",
+    "operational systems",
+    "growth architecture",
+    "CRM implementation",
+    "brand positioning",
+  ],
   openGraph: {
     type: "website",
     url: siteUrl,
@@ -33,6 +44,9 @@ export const metadata: Metadata = {
     title: "ATFRO — Architecting Transformations For Robust Outcomes",
     description:
       "Systems-first consulting for startups and growth-stage companies ready for structured, scalable growth.",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
   },
 };
 
@@ -73,6 +87,7 @@ export default function RootLayout({
             }),
           }}
         />
+        <GoogleAnalytics />
         <header>
           <Navbar />
         </header>
