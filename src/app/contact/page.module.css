@@ -1,6 +1,6 @@
 .headerSection {
-  padding-top: 12rem;
-  padding-bottom: 4rem;
+  padding-top: 9rem;
+  padding-bottom: 3rem;
   border-bottom: 1px solid var(--border);
 }
 
@@ -26,6 +26,11 @@
   gap: 2rem;
 }
 
+.detailBlock {
+  display: flex;
+  flex-direction: column;
+}
+
 .detailLabel {
   display: block;
   margin-bottom: 0.5rem;
@@ -39,7 +44,7 @@
 }
 
 .formWrapper {
-  background: rgba(255, 255, 255, 0.02);
+  background: #ffffff;
   border: 1px solid var(--border);
   padding: 2.5rem;
   border-radius: 1rem;
@@ -76,20 +81,16 @@
 .textarea:focus {
   outline: none;
   border-color: var(--primary);
-  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
 }
 
 .input::placeholder,
 .textarea::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--text-muted);
 }
 
 .select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(255, 255, 255, 0.5)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  background-size: 1rem;
 }
 
 .select option {
