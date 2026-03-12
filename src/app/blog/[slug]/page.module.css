@@ -1,0 +1,105 @@
+.postHeader {
+  padding-top: 10rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.backLink {
+  display: inline-block;
+  color: var(--text-muted);
+  font-family: var(--font-family-sans);
+  font-size: 0.875rem;
+  margin-bottom: 3rem;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: var(--primary);
+}
+
+.meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.category {
+  color: var(--primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.date {
+  color: var(--text-color);
+}
+
+.title {
+  margin-bottom: 2rem;
+  line-height: 1.1;
+  max-width: 900px;
+}
+
+.postContent {
+  max-width: 800px; /* Optimal reading width */
+  margin: 0 auto;
+}
+
+.contentPlaceholder {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.lead {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.contentPlaceholder code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+  color: var(--primary);
+}
+
+.callout {
+  background: var(--accent);
+  border-left: 4px solid var(--primary);
+  padding: 2rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 2rem 0;
+}
+
+.authorArea {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+  margin-top: 4rem;
+}
+
+.authorAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--bg-color);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
