@@ -1,10 +1,20 @@
 .hero {
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding-top: 5rem;
+  padding: 7rem 0 5rem;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.06) 1px, transparent 0);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .heroContainer {
@@ -62,9 +72,16 @@
 
 .heroActions {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+/* Problem Section - tighter padding */
+.problemSection {
+  padding: 5rem 0 !important;
 }
 
 /* Bento Grid */
@@ -78,7 +95,12 @@
   gap: 2rem;
 }
 
+.bentoCardWrapper {
+  height: 100%;
+}
+
 .bentoCard {
+  height: 100%;
   background: #ffffff;
   border: 1px solid var(--border);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
@@ -96,20 +118,33 @@
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
 }
 
+.bentoCard::after {
+  content: attr(data-number);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
 .iconBox {
-  width: 3.5rem;
-  height: 3.5rem;
-  background: var(--bg-color);
-  color: var(--text-color);
-  border: 1px solid var(--border);
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--primary);
+  color: var(--dark-text);
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5rem;
+  border-radius: 50%;
   font-family: var(--font-family-display);
   font-weight: 700;
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+  font-size: 0.75rem;
+  margin-bottom: 1.25rem;
 }
 
 /* Pillars Section */
@@ -160,7 +195,7 @@
   text-align: center;
 }
 
-/* Home Process Timeline */
+/* Home Process / Blueprint */
 .processSection {
   background-color: #ffffff;
   border-top: 1px solid var(--border);
@@ -179,81 +214,97 @@
   color: var(--text-muted);
 }
 
-.processTimeline {
+.processGrid {
   margin-top: 3rem;
   display: grid;
-  gap: 2.5rem;
-}
-
-.timelineItem {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr;
   gap: 1.5rem;
-  align-items: flex-start;
 }
 
-.timelineMarker {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.blueprintCard {
+  position: relative;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem 2rem 2.25rem;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.markerDot {
-  width: 0.75rem;
-  height: 0.75rem;
+.blueprintCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+}
+
+.blueprintWatermark {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  opacity: 0.08;
+  line-height: 1;
+}
+
+.blueprintTag {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  background-color: var(--primary);
-}
-
-.markerLine {
-  flex: 1;
-  width: 2px;
-  margin-top: 0.5rem;
-  background: var(--border);
-}
-
-.timelineContent {
-  max-width: 640px;
-}
-
-.stageNum {
-  display: block;
-  margin-bottom: 0.25rem;
+  border: 1px solid var(--border);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
 }
 
-.stageTitle {
+.blueprintTitle {
   margin-bottom: 0.5rem;
 }
 
-.stageDesc {
+.blueprintDesc {
   margin-bottom: 0;
+  font-size: 0.95rem;
+  max-width: 52ch;
+}
+
+.blueprintCardDark {
+  grid-column: 1 / -1;
+  background: var(--dark);
+  color: var(--dark-text);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.blueprintCardDark .blueprintWatermark {
+  opacity: 0.12;
+  color: #fff;
+}
+
+.blueprintCardDark .blueprintTag {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.blueprintCardDark .blueprintTitle,
+.blueprintCardDark .blueprintDesc {
+  color: var(--dark-text);
+}
+
+.blueprintCardDark .blueprintDesc {
+  opacity: 0.9;
 }
 
 @media (min-width: 768px) {
-  .heroContainer {
-    flex-direction: row;
-    justify-content: space-between;
+  .processGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
-  
-  .heroContent {
-    flex: 1;
-    padding-right: 4rem;
-  }
-  
-  .heroVisual {
-    flex: 1;
-    margin-top: 0;
-    height: 600px;
-  }
+}
 
+@media (min-width: 768px) {
   .bentoGrid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto auto;
-  }
-
-  .bentoLarge {
-    grid-column: 1 / -1;
   }
 
   .pillarsGrid {
@@ -264,11 +315,6 @@
 @media (min-width: 1024px) {
   .bentoGrid {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-  }
-  
-  .bentoLarge {
-    grid-column: span 2;
   }
 }
 
