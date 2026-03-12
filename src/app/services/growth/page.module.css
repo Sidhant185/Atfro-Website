@@ -1,0 +1,85 @@
+.headerSection {
+  padding-top: 12rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.leadText {
+  font-size: 1.125rem;
+  max-width: 800px;
+}
+
+.layout {
+  padding: 4rem 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.sidebar {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.listTitle {
+  margin-bottom: 1rem;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+  font-size: 0.98rem;
+}
+
+.body {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.highlight {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  padding: 2rem;
+}
+
+.ctaSection {
+  background-color: var(--accent);
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.ctaText {
+  font-size: 1.125rem;
+  max-width: 720px;
+  margin: 0 auto 2rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 4rem;
+  }
+}
+
