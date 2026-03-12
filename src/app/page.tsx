@@ -109,6 +109,43 @@ export default function Home() {
           </FadeIn>
         </div>
       </section>
+
+      {/* 7-Stage Transformation Process Embedded in Home Page */}
+      <section className={`section ${styles.processSection}`}>
+        <div className="container">
+          <FadeIn direction="up" className={styles.processHeader}>
+            <Typography variant="caption">Our Blueprint</Typography>
+            <Typography variant="h2" className={styles.processTitle}>7 Stages of Transformation</Typography>
+            <Typography variant="p" className={styles.processLead}>
+              We do not guess. We operate on a strict, diagnostic methodology.
+            </Typography>
+          </FadeIn>
+
+          <div className={styles.processTimeline}>
+            {[
+              { num: '01', title: 'The Diagnostic Audit', desc: 'We conduct a deep, 2-to-4 week audit mapping your technical infrastructure, brand positioning, and existing funnels to identify exactly where the bottlenecks are.' },
+              { num: '02', title: 'Findings & Strategy Formulation', desc: 'We present our objective findings and develop a cohesive strategy spanning product narrative, operations, and marketing rather than fragmented tactics.' },
+              { num: '03', title: 'Roadmap & Proposal', desc: 'We deliver a structured roadmap defining the precise steps, timeline, and investment required to implement the new architecture.' },
+              { num: '04', title: 'Execution & Weekly Sprints', desc: 'Upon approval, implementation begins immediately. We operate transparently with weekly reviews and continuous feedback loops.' },
+              { num: '05', title: '25% Development Milestone', desc: 'Early foundation build. At this checkpoint, our clients evaluate the initial setups (CRM mappings, early funnels) to ensure alignment.' },
+              { num: '06', title: '50% & 80% Milestones', desc: 'Continued, staged development of the entire ecosystem. The client maintains complete ownership of all developed assets at every stage.' },
+              { num: '07', title: 'Handover & Growth Management', desc: 'Core infrastructure is launched. From here, we focus on driving scale, managing the campaigns, and optimizing the newly built growth engine.' }
+            ].map((stage, i) => (
+              <FadeIn key={stage.num} delay={i * 0.1} direction="up" className={styles.timelineItem}>
+                <div className={styles.timelineMarker}>
+                  <span className={styles.markerDot}></span>
+                  {i < 6 && <div className={styles.markerLine}></div>}
+                </div>
+                <div className={styles.timelineContent}>
+                  <Typography variant="caption" className={styles.stageNum}>Stage {stage.num}</Typography>
+                  <Typography variant="h4" className={styles.stageTitle}>{stage.title}</Typography>
+                  <Typography variant="p" className={styles.stageDesc}>{stage.desc}</Typography>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
