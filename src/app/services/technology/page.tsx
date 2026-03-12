@@ -30,6 +30,35 @@ export const metadata: Metadata = {
   },
 };
 
+const features = [
+  {
+    number: "01",
+    title: "The nervous system of your business.",
+    description:
+      "We treat your technology stack like a centralized nervous system. Data should move seamlessly from marketing site to CRM to billing to customer success—with zero manual handoff.",
+  },
+  {
+    number: "02",
+    title: "From scattered tools to one architecture.",
+    description:
+      "Instead of layering yet another SaaS tool on top of an already-fragmented stack, we design a single architecture where every system has a defined role. This eliminates invisible revenue leaks created by broken integrations and duplicated data.",
+  },
+  {
+    number: "03",
+    title: "Built for the next stage of scale.",
+    description:
+      "Whether you are moving from 10 to 100 customers or from 100 to 1,000, your infrastructure must handle volume before it arrives. We design systems that are resilient under pressure and simple enough for your team to operate.",
+  },
+];
+
+const deliverables = [
+  "Custom CRM architectures and data models",
+  "Lead routing, assignment, and follow-up automations",
+  "Centralized analytics and performance dashboards",
+  "API-first integrations between disconnected tools",
+  "Event-based triggers for onboarding and lifecycle flows",
+];
+
 export default function TechnologyServicesPage() {
   const breadcrumbItems = [
     { label: "Home", href: "/" },
@@ -56,75 +85,52 @@ export default function TechnologyServicesPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className={styles.contentSection}>
         <div className="container">
-          <div className={styles.layout}>
-            <aside className={styles.sidebar}>
-              <span className={styles.tag}>Deliverables</span>
-              <Typography variant="h4" className={styles.listTitle}>
+          <div className={styles.featureGrid}>
+            {features.map((feature, i) => (
+              <FadeIn key={feature.number} delay={i * 0.1}>
+                <div className={styles.featureCard}>
+                  <span className={styles.featureNumber}>{feature.number}</span>
+                  <Typography variant="h3" className={styles.featureTitle}>
+                    {feature.title}
+                  </Typography>
+                  <Typography variant="p" className={styles.featureDesc}>
+                    {feature.description}
+                  </Typography>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <FadeIn direction="up" delay={0.3}>
+            <div className={styles.deliverablesCard}>
+              <Typography variant="caption" className={styles.deliverablesTag}>
+                Deliverables
+              </Typography>
+              <Typography variant="h4" className={styles.deliverablesTitle}>
                 What we build.
               </Typography>
-              <ul className={styles.list}>
-                <li>Custom CRM architectures and data models</li>
-                <li>Lead routing, assignment, and follow-up automations</li>
-                <li>Centralized analytics and performance dashboards</li>
-                <li>API-first integrations between disconnected tools</li>
-                <li>Event-based triggers for onboarding and lifecycle flows</li>
+              <ul className={styles.deliverablesList}>
+                {deliverables.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
-            </aside>
-
-            <div className={styles.body}>
-              <FadeIn direction="up" delay={0.1} className={styles.highlight}>
-                <Typography variant="h3">
-                  The nervous system of your business.
-                </Typography>
-                <Typography variant="p">
-                  We treat your technology stack like a centralized nervous
-                  system. Data should move seamlessly from marketing site to CRM
-                  to billing to customer success—with zero manual handoff.
-                </Typography>
-              </FadeIn>
-
-              <FadeIn direction="up" delay={0.2}>
-                <Typography variant="h4">
-                  From scattered tools to one architecture.
-                </Typography>
-                <Typography variant="p">
-                  Instead of layering yet another SaaS tool on top of an
-                  already-fragmented stack, we design a single architecture
-                  where every system has a defined role. This eliminates
-                  invisible revenue leaks created by broken integrations and
-                  duplicated data.
-                </Typography>
-              </FadeIn>
-
-              <FadeIn direction="up" delay={0.3}>
-                <Typography variant="h4">
-                  Built for the next stage of scale.
-                </Typography>
-                <Typography variant="p">
-                  Whether you are moving from 10 to 100 customers or from 100
-                  to 1,000, your infrastructure must handle volume before it
-                  arrives. We design systems that are resilient under pressure
-                  and simple enough for your team to operate.
-                </Typography>
-              </FadeIn>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
-      <section className={`section ${styles.ctaSection}`}>
+      <section className="ctaSection">
         <div className="container">
           <FadeIn direction="up">
             <Typography variant="h2">
               Ready to build a real backbone for growth?
             </Typography>
-            <Typography variant="p" className={styles.ctaText}>
+            <Typography variant="p" className="ctaText">
               Start with a diagnostic audit of your current infrastructure and
               a technical roadmap that shows exactly what needs to change.
             </Typography>
-            <div className={styles.actions}>
+            <div className="actions">
               <Link href="/process" tabIndex={-1}>
                 <Button variant="secondary" size="lg">
                   Explore the Process
@@ -142,4 +148,3 @@ export default function TechnologyServicesPage() {
     </>
   );
 }
-
