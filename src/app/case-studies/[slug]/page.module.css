@@ -1,0 +1,88 @@
+.postHeader {
+  padding-top: 10rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-color);
+}
+
+.backLink {
+  display: inline-block;
+  color: var(--text-muted);
+  font-family: var(--font-family-sans);
+  font-size: 0.875rem;
+  margin-bottom: 3rem;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: var(--primary);
+}
+
+.meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.category {
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.title {
+  margin-bottom: 2rem;
+  line-height: 1.1;
+  max-width: 900px;
+}
+
+.lead {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  max-width: 800px;
+}
+
+.postContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contentBlock {
+  margin-bottom: 4rem;
+}
+
+.sectionHeading {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.paragraph {
+  margin-bottom: 2rem;
+  font-size: 1.15rem;
+  color: var(--text-color);
+  line-height: 1.8;
+  opacity: 0.9;
+}
+
+.listItem {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.ctaSection {
+  background-color: var(--bg-color);
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
