@@ -70,7 +70,7 @@ export default function Home() {
       </section>
 
       {/* Redesigned Problem Section: Bento Box Style */}
-      <section className="section">
+      <section className={`section ${styles.problemSection}`}>
         <div className="container">
           <FadeIn direction="up">
             <Typography variant="caption">The Problem</Typography>
@@ -78,27 +78,27 @@ export default function Home() {
           </FadeIn>
 
           <div className={styles.bentoGrid}>
-            <FadeIn delay={0.1} className={`${styles.bentoCard} ${styles.bentoLarge}`}>
-              <Typography variant="h3">The Growth Bottleneck</Typography>
-              <Typography variant="p">Brilliant products often fail because the internal pipeline—sales, marketing, customer support—is disconnected and relies on manual effort.</Typography>
-            </FadeIn>
-            
-            <FadeIn delay={0.2} className={styles.bentoCard} direction="left">
-               <div className={styles.iconBox}>A</div>
-               <Typography variant="h4">Lost Leads</Typography>
-               <Typography variant="p">Unstructured pipelines let qualified prospects slip away.</Typography>
-            </FadeIn>
-            
-             <FadeIn delay={0.3} className={styles.bentoCard} direction="left">
-               <div className={styles.iconBox}>B</div>
-               <Typography variant="h4">Brand Confusion</Typography>
-               <Typography variant="p">Inconsistent messaging confuses your target market.</Typography>
-            </FadeIn>
+            {[
+              { num: "01", title: "The Growth Bottleneck", desc: "Brilliant products often fail because the internal pipeline—sales, marketing, customer support—is disconnected and relies on manual effort.", first: true },
+              { num: "02", title: "Lost Leads", desc: "Unstructured pipelines let qualified prospects slip away." },
+              { num: "03", title: "Brand Confusion", desc: "Inconsistent messaging confuses your target market." },
+              { num: "04", title: "Stalled Revenue", desc: "Growth plateaus because the funnel has no measurable feedback loop." },
+              { num: "05", title: "Tool Overload", desc: "Disconnected SaaS tools create data silos and manual reconciliation." },
+              { num: "06", title: "No Narrative", desc: "Without a unified positioning story, every channel speaks a different language." },
+            ].map((item, i) => (
+              <FadeIn key={item.num} delay={(i + 1) * 0.1} className={styles.bentoCardWrapper}>
+                <div className={styles.bentoCard} data-number={item.num}>
+                  {!item.first && <div className={styles.iconBox}>{item.num}</div>}
+                  <Typography variant={item.first ? "h3" : "h4"}>{item.title}</Typography>
+                  <Typography variant="p">{item.desc}</Typography>
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className={`section ${styles.pillarsSection}`}>
+      <section className={`section sectionSoft ${styles.pillarsSection}`}>
         <div className="container">
           <FadeIn direction="up">
             <Typography variant="caption">Our Framework</Typography>
@@ -135,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* 7-Stage Transformation Process Embedded in Home Page */}
-      <section className={`section ${styles.processSection}`}>
+      <section className={`section sectionAlt ${styles.processSection}`}>
         <div className="container">
           <FadeIn direction="up" className={styles.processHeader}>
             <Typography variant="caption">Our Blueprint</Typography>
@@ -145,29 +145,43 @@ export default function Home() {
             </Typography>
           </FadeIn>
 
-          <div className={styles.processTimeline}>
+          <div className={styles.processGrid}>
             {[
-              { num: '01', title: 'The Diagnostic Audit', desc: 'We conduct a deep, 2-to-4 week audit mapping your technical infrastructure, brand positioning, and existing funnels to identify exactly where the bottlenecks are.' },
-              { num: '02', title: 'Findings & Strategy Formulation', desc: 'We present our objective findings and develop a cohesive strategy spanning product narrative, operations, and marketing rather than fragmented tactics.' },
-              { num: '03', title: 'Roadmap & Proposal', desc: 'We deliver a structured roadmap defining the precise steps, timeline, and investment required to implement the new architecture.' },
-              { num: '04', title: 'Execution & Weekly Sprints', desc: 'Upon approval, implementation begins immediately. We operate transparently with weekly reviews and continuous feedback loops.' },
-              { num: '05', title: '25% Development Milestone', desc: 'Early foundation build. At this checkpoint, our clients evaluate the initial setups (CRM mappings, early funnels) to ensure alignment.' },
-              { num: '06', title: '50% & 80% Milestones', desc: 'Continued, staged development of the entire ecosystem. The client maintains complete ownership of all developed assets at every stage.' },
-              { num: '07', title: 'Handover & Growth Management', desc: 'Core infrastructure is launched. From here, we focus on driving scale, managing the campaigns, and optimizing the newly built growth engine.' }
+              { num: "01", label: "Audit", title: "The Diagnostic Audit", desc: "We conduct a deep, 2-to-4 week audit mapping your technical infrastructure, brand positioning, and existing funnels to identify exactly where the bottlenecks are." },
+              { num: "02", label: "Insight", title: "Findings & Strategy Formulation", desc: "We present our objective findings and develop a cohesive strategy spanning product narrative, operations, and marketing rather than fragmented tactics." },
+              { num: "03", label: "Architecture", title: "Roadmap & Proposal", desc: "We deliver a structured roadmap defining the precise steps, timeline, and investment required to implement the new architecture." },
+              { num: "04", label: "Implementation", title: "Execution & Weekly Sprints", desc: "Upon approval, implementation begins immediately. We operate transparently with weekly reviews and continuous feedback loops." },
+              { num: "05", label: "Foundation", title: "25% Development Milestone", desc: "Early foundation build. At this checkpoint, our clients evaluate the initial setups (CRM mappings, early funnels) to ensure alignment." },
+              { num: "06", label: "Scale Up", title: "50% & 80% Milestones", desc: "Continued, staged development of the entire ecosystem. The client maintains complete ownership of all developed assets at every stage." },
+              { num: "07", label: "Growth", title: "Handover & Growth Management", desc: "Core infrastructure is launched. From here, we focus on driving scale, managing the campaigns, and optimizing the newly built growth engine." },
             ].map((stage, i) => (
-              <FadeIn key={stage.num} delay={i * 0.1} direction="up" className={styles.timelineItem}>
-                <div className={styles.timelineMarker}>
-                  <span className={styles.markerDot}></span>
-                  {i < 6 && <div className={styles.markerLine}></div>}
-                </div>
-                <div className={styles.timelineContent}>
-                  <Typography variant="caption" className={styles.stageNum}>Stage {stage.num}</Typography>
-                  <Typography variant="h4" className={styles.stageTitle}>{stage.title}</Typography>
-                  <Typography variant="p" className={styles.stageDesc}>{stage.desc}</Typography>
-                </div>
+              <FadeIn key={stage.num} delay={i * 0.06} direction="up" className={`${styles.blueprintCard} ${stage.num === "07" ? styles.blueprintCardDark : ""}`}>
+                <span className={styles.blueprintWatermark} aria-hidden="true">{stage.num}</span>
+                <span className={styles.blueprintTag}>{stage.label}</span>
+                <Typography variant="h4" className={styles.blueprintTitle}>{stage.title}</Typography>
+                <Typography variant="p" className={styles.blueprintDesc}>{stage.desc}</Typography>
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="ctaSection">
+        <div className="container">
+          <FadeIn direction="up">
+            <Typography variant="h2">Ready to transform your operations?</Typography>
+            <Typography variant="p" className="ctaText">
+              Start with a diagnostic audit and a structured roadmap. No guesswork—just systems that scale.
+            </Typography>
+            <div className="actions">
+              <Link href="/contact" tabIndex={-1}>
+                <Button variant="primary" size="lg">Start Your Transformation</Button>
+              </Link>
+              <Link href="/case-studies" tabIndex={-1}>
+                <Button variant="outline" size="lg">See Our Work</Button>
+              </Link>
+            </div>
+          </FadeIn>
         </div>
       </section>
     </>
