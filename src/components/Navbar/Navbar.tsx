@@ -10,6 +10,7 @@ const navLinks = [
   { name: 'Services', href: '/services' },
   { name: 'Process', href: '/process' },
   { name: 'Case Studies', href: '/case-studies' },
+  { name: 'Insights', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ];
 
@@ -53,7 +54,7 @@ export const Navbar: React.FC = () => {
               <Link 
                 key={link.name} 
                 href={link.href}
-                className={`${styles.navLink} ${pathname === link.href ? styles.active : ''}`}
+                className={`${styles.navLink} ${pathname === link.href || (link.href === '/blog' && pathname.startsWith('/blog')) ? styles.active : ''}`}
               >
                 {link.name}
               </Link>
@@ -86,7 +87,7 @@ export const Navbar: React.FC = () => {
             <Link 
               key={link.name} 
               href={link.href}
-              className={`${styles.mobileNavLink} ${pathname === link.href ? styles.active : ''}`}
+              className={`${styles.mobileNavLink} ${pathname === link.href || (link.href === '/blog' && pathname.startsWith('/blog')) ? styles.active : ''}`}
               onClick={() => setIsOpen(false)}
             >
               {link.name}
