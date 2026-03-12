@@ -1,0 +1,84 @@
+ .headerSection {
+  padding-top: 12rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.leadText {
+  font-size: 1.25rem;
+  max-width: 800px;
+}
+
+.timelineSection {
+  background-color: var(--bg-subtle);
+}
+
+.timelineGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.stageRow {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.stageIndex {
+  font-family: var(--font-family-display);
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.stageMeta {
+  margin-bottom: 0.75rem;
+}
+
+.stageTitle {
+  margin-bottom: 0.5rem;
+}
+
+.stageTag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.stageBody {
+  max-width: 60ch;
+}
+
+.ctaSection {
+  background-color: var(--accent);
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.ctaText {
+  font-size: 1.125rem;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 1024px) {
+  .timelineGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
