@@ -27,43 +27,43 @@ export default function CaseStudiesPage() {
 
       <section className="section">
         <div className="container">
-          <FadeIn direction="up">
-            <Typography variant="caption" className={styles.featuredLabel}>Featured Transformation</Typography>
-            <Typography variant="h2" className={styles.featuredTitle}>SaaS Startup Scaling Engine</Typography>
-          </FadeIn>
-
-          <div className={styles.metricsGrid}>
-            <FadeIn delay={0.1} direction="up" className={styles.metricCard}>
-              <Typography variant="h2" className={styles.metricValue}>3x</Typography>
-              <Typography variant="p" className={styles.metricLabel}>Increase in Qualified Lead Volume</Typography>
-            </FadeIn>
-            <FadeIn delay={0.2} direction="up" className={styles.metricCard}>
-              <Typography variant="h2" className={styles.metricValue}>-40%</Typography>
-              <Typography variant="p" className={styles.metricLabel}>Reduction in Early Customer Churn</Typography>
-            </FadeIn>
-            <FadeIn delay={0.3} direction="up" className={styles.metricCard}>
-              <Typography variant="h2" className={styles.metricValue}>100%</Typography>
-              <Typography variant="p" className={styles.metricLabel}>Visibility into Sales Pipeline</Typography>
-            </FadeIn>
-          </div>
-
-          <div className={styles.storyGrid}>
-            <FadeIn direction="up" className={styles.storyBlock}>
-              <Typography variant="h3">The Friction</Typography>
-              <Typography variant="p" className={styles.storyText}>
-                A SaaS startup with a technically brilliant product hit a growth ceiling. Lead generation was sporadic, the sales pipeline was invisible, and manual onboarding was causing high early churn.
-              </Typography>
-            </FadeIn>
-            
-            <FadeIn direction="up" delay={0.2} className={styles.storyBlock}>
-              <Typography variant="h3">The Architecture</Typography>
-              <ul className={styles.visualList}>
-                <li><strong>Tech:</strong> Custom CRM & fully automated follow-up workflows.</li>
-                <li><strong>Marketing:</strong> Targeted Paid Ads + SEO Content Strategy.</li>
-                <li><strong>Brand:</strong> Re-positioned messaging to stand out from generic competitors.</li>
-                <li><strong>Experience:</strong> Redesigned onboarding flow to reduce Time-to-Value.</li>
-              </ul>
-            </FadeIn>
+          <div className={styles.casesGrid}>
+            {[
+              { 
+                link: '/case-studies/saas-startup-transformation',
+                metric: '3x Leads', 
+                metricLabel: 'Pipeline Growth',
+                client: 'SaaS Startup', 
+                title: 'Operational scaling for a high-growth platform.', 
+                tags: ['CRM Implementation', 'Funnel Design', 'Brand Architecture'] 
+              },
+              { 
+                link: '/case-studies/sattvahar-digital-foundation',
+                metric: 'Platform Live', 
+                metricLabel: 'Digital Infrastructure',
+                client: 'Sattvahar', 
+                title: 'Building a premium digital foundation and user experience.', 
+                tags: ['UX Design', 'Performance Optimization', 'Brand Storytelling'] 
+              }
+            ].map((study, i) => (
+              <FadeIn key={i} direction="up" delay={i * 0.1}>
+                <Link href={study.link} className={styles.caseCard}>
+                  <div className={styles.cardHeader}>
+                    <div className={styles.metricBlock}>
+                      <Typography variant="h3" className={styles.metricValue}>{study.metric}</Typography>
+                      <Typography variant="caption" className={styles.metricLabel}>{study.metricLabel}</Typography>
+                    </div>
+                  </div>
+                  <div className={styles.cardContent}>
+                    <Typography variant="caption" className={styles.clientName}>{study.client}</Typography>
+                    <Typography variant="h4" className={styles.caseTitle}>{study.title}</Typography>
+                    <div className={styles.tagsGrid}>
+                      {study.tags.map(tag => <span key={tag} className={styles.tag}>{tag}</span>)}
+                    </div>
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </section>
