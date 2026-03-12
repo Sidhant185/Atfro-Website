@@ -141,6 +141,28 @@
   line-height: 1.5;
 }
 
+.founderLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.profileLink {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--primary);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.profileLink:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
 @media (min-width: 768px) {
   .foundersGrid {
     grid-template-columns: repeat(2, 1fr);
