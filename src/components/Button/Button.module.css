@@ -59,7 +59,7 @@
 
 .outline:hover {
   background-color: var(--primary);
-  color: #000;
+  color: #ffffff;
 }
 
 .outline:active {
