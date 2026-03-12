@@ -1,5 +1,6 @@
 import { Typography } from '@/components/Typography/Typography';
 import { Button } from '@/components/Button/Button';
+import { FadeIn } from '@/components/FadeIn/FadeIn';
 import { Metadata } from 'next';
 import styles from './page.module.css';
 
@@ -7,6 +8,12 @@ export const metadata: Metadata = {
   title: 'Start Transformation | ATFRO',
   description: 'Begin your transformation journey. Contact ATFRO to rebuild your operational systems and accelerate growth.',
 };
+
+const stats = [
+  { value: '24–48h', label: 'Typical first response' },
+  { value: 'Discovery-first', label: 'No hard sell' },
+  { value: '100%', label: 'Structured process' },
+];
 
 export default function ContactPage() {
   return (
@@ -21,7 +28,22 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className={styles.statsSection}>
+        <div className="container">
+          <div className={styles.statsGrid}>
+            {stats.map((stat, i) => (
+              <FadeIn key={stat.label} direction="up" delay={i * 0.1}>
+                <div className={styles.statCard}>
+                  <span className={styles.statValue}>{stat.value}</span>
+                  <span className={styles.statLabel}>{stat.label}</span>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={`section ${styles.formSection}`}>
         <div className="container">
           <div className={styles.contactContainer}>
             <div className={styles.contactInfo}>
