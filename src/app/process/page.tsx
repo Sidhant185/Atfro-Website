@@ -10,7 +10,7 @@ const siteUrl = "https://atfro.in/process";
 export const metadata: Metadata = {
   title: "Business Transformation Process | ATFRO",
   description:
-    "ATFRO’s 7-stage business transformation process moves companies from chaos to structured, scalable growth using a diagnostic-first methodology.",
+    "ATFRO's 7-stage business transformation process moves companies from chaos to structured, scalable growth using a diagnostic-first methodology.",
   alternates: {
     canonical: siteUrl,
   },
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: "article",
     title: "Business Transformation Process | ATFRO",
     description:
-      "Explore ATFRO’s 7-stage transformation process for architecting scalable growth systems across technology, growth, brand, and operations.",
+      "Explore ATFRO's 7-stage transformation process for architecting scalable growth systems across technology, growth, brand, and operations.",
   },
   twitter: {
     card: "summary_large_image",
@@ -93,7 +93,7 @@ export default function ProcessPage() {
         </div>
       </section>
 
-      <section className={`section ${styles.timelineSection}`}>
+      <section className={styles.timelineSection}>
         <div className="container">
           <div className={styles.timelineGrid}>
             {stages.map((stage, idx) => (
@@ -101,23 +101,28 @@ export default function ProcessPage() {
                 key={stage.index}
                 direction="up"
                 delay={idx * 0.05}
-                className={styles.stageRow}
+                className={styles.stageWrapper}
               >
-                <div className={styles.stageIndex}>0{idx + 1}</div>
-                <div>
-                  <div className={styles.stageMeta}>
-                    <span className={styles.stageTag}>{stage.label}</span>
+                <div className={styles.stageCard}>
+                  <div className={styles.stageProgress}>
+                    <span className={styles.stageNumber}>{stage.index}</span>
+                    {idx < stages.length - 1 && (
+                      <div className={styles.connector} aria-hidden />
+                    )}
                   </div>
-                  <Typography
-                    variant="h3"
-                    className={styles.stageTitle}
-                    as="h2"
-                  >
-                    {stage.title}
-                  </Typography>
-                  <Typography variant="p" className={styles.stageBody}>
-                    {stage.body}
-                  </Typography>
+                  <div className={styles.stageContent}>
+                    <span className={styles.stageTag}>{stage.label}</span>
+                    <Typography
+                      variant="h3"
+                      className={styles.stageTitle}
+                      as="h2"
+                    >
+                      {stage.title}
+                    </Typography>
+                    <Typography variant="p" className={styles.stageBody}>
+                      {stage.body}
+                    </Typography>
+                  </div>
                 </div>
               </FadeIn>
             ))}
@@ -125,18 +130,18 @@ export default function ProcessPage() {
         </div>
       </section>
 
-      <section className={`section ${styles.ctaSection}`}>
+      <section className="ctaSection">
         <div className="container">
           <FadeIn direction="up">
             <Typography variant="h2">
               Ready to move through these stages?
             </Typography>
-            <Typography variant="p" className={styles.ctaText}>
+            <Typography variant="p" className="ctaText">
               Start with a diagnostic audit that surfaces the real reasons
               growth has stalled, then move into a structured roadmap and
               implementation.
             </Typography>
-            <div className={styles.actions}>
+            <div className="actions">
               <Link href="/contact" tabIndex={-1}>
                 <Button variant="primary" size="lg">
                   Start Transformation
@@ -154,4 +159,3 @@ export default function ProcessPage() {
     </>
   );
 }
-
