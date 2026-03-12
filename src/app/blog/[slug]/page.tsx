@@ -1,76 +1,194 @@
 import { Typography } from '@/components/Typography/Typography';
+import { Button } from '@/components/Button/Button';
 import { FadeIn } from '@/components/FadeIn/FadeIn';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import styles from './page.module.css';
 
-interface BlogPostProps {
-  params: { slug: string };
-}
-
-export async function generateMetadata({ params }: BlogPostProps): Promise<Metadata> {
-  const resolvedParams = await Promise.resolve(params); // Next 15 awaits params
-  // Placeholder metadata generation
-  // In a real app, you would fetch post data based on the slug
-  
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const resolvedParams = await Promise.resolve(params);
   return {
     title: `${resolvedParams.slug.replace(/-/g, ' ')} | ATFRO Insights`,
-    description: `Read the latest insights on ${resolvedParams.slug.replace(/-/g, ' ')} from ATFRO.`,
   };
 }
 
-export default async function BlogPostPage({ params }: BlogPostProps) {
-  const resolvedParams = await Promise.resolve(params); // Next 15 awaits params
-  
+const blogData: Record<string, any> = {
+  'the-architecture-of-scale': {
+    title: 'The Architecture of Scale: Why Your Tech Stack is Bleeding Revenue',
+    author: 'Sidhant (Tech Lead & Founder)',
+    date: 'March 10, 2026',
+    category: 'Technology & Operations',
+    content: [
+      {
+        type: 'h2',
+        text: 'The Illusion of "More Tools"'
+      },
+      {
+        type: 'p',
+        text: 'Most growth-stage startups hit a technical plateau. Not because their engineering team is incapable, but because their operational technology stack is fragmented. Founders often try to solve business problems by subscribing to more SaaS products: a new CRM, another analytics tool, a secondary email automation suite.'
+      },
+      {
+        type: 'p',
+        text: 'This is the exact opposite of what scales a business. Adding disjointed tools without a unified architectural strategy creates data silos, manual coordination friction, and ultimately, it bleeds revenue. When your sales team cannot see the marketing touchpoints, and your customer success team is flying blind, the system is fundamentally broken.'
+      },
+      {
+        type: 'h2',
+        text: 'The Centralized Nervous System'
+      },
+      {
+        type: 'p',
+        text: 'At ATFRO, we do not just "build websites" or "set up CRMs." We architect centralized nervous systems. Every piece of data from a user landing on a webpage to closing a deal to renewing their subscription must flow through a single, intelligent pipeline.'
+      },
+      {
+        type: 'p',
+        text: 'When we audit a new client, the first thing we look for is API friction. Are your leads being manually routed? Is your onboarding triggering automatically based on payment gateways? True scale requires the complete eradication of manual data entry.'
+      },
+      {
+        type: 'h2',
+        text: 'Building for the Next Stage'
+      },
+      {
+        type: 'p',
+        text: 'If you want to move from 10 customers to 1,000, your technology infrastructure must be invisible. It must operate silently in the background, reliably predicting outcomes and attributing revenue perfectly. Stop buying tools. Start architecting systems.'
+      }
+    ]
+  },
+  'positioning-over-tactics': {
+    title: 'Positioning Over Tactics: The Death of Generic B2B Marketing',
+    author: 'Shweta (Brand & Marketing Director)',
+    date: 'March 05, 2026',
+    category: 'Brand & Growth',
+    content: [
+      {
+        type: 'h2',
+        text: 'The Noise of the Modern Internet'
+      },
+      {
+        type: 'p',
+        text: 'B2B marketing has become an echo chamber. Everyone is publishing the same generic "SEO-optimized" blog posts, running the same LinkedIn ad templates, and sending the same cold email sequences. The tactical playbook is exhausted.'
+      },
+      {
+        type: 'p',
+        text: 'If your brand looks, sounds, and acts like your competitors, you are competing purely on price. And competing on price is a race to the bottom.'
+      },
+      {
+        type: 'h2',
+        text: 'Brand as a Differentiator'
+      },
+      {
+        type: 'p',
+        text: 'Positioning is the act of deciding exactly who you are, who you serve, and critically, who you do NOT serve. A strong brand is polarizing. It actively turns away the wrong prospects while magnetically attracting ideal clients.'
+      },
+      {
+        type: 'p',
+        text: 'At ATFRO, we force our clients to undergo a rigorous brand audit before we spend a single dollar on paid acquisition. We refine the core narrative: What is the undeniable truth of your product? Why does it exist? How does it actually make the user\'s life better?'
+      },
+      {
+        type: 'h2',
+        text: 'Execution Means Nothing Without Message'
+      },
+      {
+        type: 'p',
+        text: 'You can have the most sophisticated marketing funnel in the world, with perfect tracking and massive budget. But if the messaging fails to resonate on a human, emotional level, the funnel will fail. Lead with emotion, justify with logic, and position with unwavering clarity.'
+      }
+    ]
+  },
+  'the-churn-paradox': {
+    title: 'The Churn Paradox: Why Onboarding is More Important Than Acquisition',
+    author: 'Aayush (Operations & Customer Experience)',
+    date: 'February 28, 2026',
+    category: 'Customer Success',
+    content: [
+      {
+        type: 'h2',
+        text: 'The Cost of a Leaky Bucket'
+      },
+      {
+        type: 'p',
+        text: 'It costs significantly more to acquire a new customer than it does to retain an existing one. Yet, companies spend 90% of their energy on marketing and sales, and only 10% on the post-purchase experience. This is the churn paradox.'
+      },
+      {
+        type: 'p',
+        text: 'If your business operates like a leaky bucket, pouring more water (leads) into the top will simply waste resources. You must fix the leaks first.'
+      },
+      {
+        type: 'h2',
+        text: 'Time-to-Value (TTV)'
+      },
+      {
+        type: 'p',
+        text: 'The critical metric in customer retention is Time-to-Value. How quickly does a new user experience the core benefit of your product after signing up? If the onboarding process is complex, manual, or confusing, user motivation drops off a cliff.'
+      },
+      {
+        type: 'p',
+        text: 'We design automated onboarding sequences that guide the user to an "Aha!" moment as rapidly as possible. We map the friction points and systematically remove them through UI improvements and automated educational sequences.'
+      },
+      {
+        type: 'h2',
+        text: 'Proactive Over Reactive'
+      },
+      {
+        type: 'p',
+        text: 'Exceptional retention is proactive. It anticipates user confusion before it happens. By architecting proper feedback loops and monitoring usage analytics, you can automatically intervene when a user shows signs of slipping away, turning a potential churn into a loyal advocate.'
+      }
+    ]
+  }
+};
+
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const resolvedParams = await Promise.resolve(params);
+  const post = blogData[resolvedParams.slug];
+
+  if (!post) {
+    notFound();
+  }
+
   return (
     <>
-      <section className={styles.postHeader}>
-        <div className="container">
-          <FadeIn direction="up">
-            <Link href="/blog" className={styles.backLink}>&larr; Back to Insights</Link>
-            <div className={styles.meta}>
-              <Typography variant="caption" className={styles.category}>Methodology</Typography>
-              <Typography variant="caption" className={styles.date}>Published recently</Typography>
-            </div>
-            <Typography variant="h1" className={styles.title}>
-               {resolvedParams.slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-            </Typography>
-          </FadeIn>
-        </div>
-      </section>
-
-      <section className="section">
-        <article className={`container ${styles.postContent}`}>
-          <FadeIn direction="up" delay={0.2}>
-            <div className={styles.contentPlaceholder}>
-              <Typography variant="p" className={styles.lead}>
-                This is a placeholder for the dynamic blog content located at <code>/blog/{resolvedParams.slug}</code>.
-              </Typography>
-              
-              <Typography variant="h3">The Future of Operational Scaling</Typography>
-              <Typography variant="p">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </Typography>
-              
-              <div className={styles.callout}>
-                 <Typography variant="h4">Key Architecture Insight</Typography>
-                 <Typography variant="p">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</Typography>
+      <article className={styles.article}>
+        <section className={styles.postHeader}>
+          <div className="container">
+            <FadeIn direction="up">
+              <Link href="/blog" className={styles.backLink}>&larr; Back to Insights</Link>
+              <div className={styles.meta}>
+                <Typography variant="caption" className={styles.category}>{post.category}</Typography>
+                <Typography variant="caption" className={styles.date}>{post.date}</Typography>
               </div>
+              <Typography variant="h1" className={styles.title}>{post.title}</Typography>
+              
+              <div className={styles.authorBox}>
+                <div className={styles.authorAvatar}></div>
+                <Typography variant="p" className={styles.authorName}>Written by <strong>{post.author}</strong></Typography>
+              </div>
+            </FadeIn>
+          </div>
+        </section>
 
-               <Typography variant="p">
-                Sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-              </Typography>
-            </div>
-            
-            <div className={styles.authorArea}>
-               <div className={styles.authorAvatar}>AT</div>
-               <div className={styles.authorInfo}>
-                 <Typography variant="h6">ATFRO Research Team</Typography>
-                 <Typography variant="caption">Strategy & Execution</Typography>
-               </div>
-            </div>
-          </FadeIn>
-        </article>
+        <section className={`section ${styles.postBodyWrapper}`}>
+          <div className={`container ${styles.postContent}`}>
+            {post.content.map((block: any, idx: number) => (
+              <FadeIn key={idx} direction="up" delay={idx * 0.05}>
+                {block.type === 'h2' ? (
+                  <Typography variant="h2" className={styles.heading2}>{block.text}</Typography>
+                ) : (
+                  <Typography variant="p" className={styles.paragraph}>{block.text}</Typography>
+                )}
+              </FadeIn>
+            ))}
+          </div>
+        </section>
+      </article>
+
+      <section className={`section ${styles.ctaSection}`}>
+        <div className="container">
+           <Typography variant="h3">Want to apply these systems to your business?</Typography>
+           <div className={styles.actions}>
+             <Link href="/contact" tabIndex={-1}>
+               <Button variant="primary" size="lg">Discuss a Partnership</Button>
+             </Link>
+           </div>
+        </div>
       </section>
     </>
   );
