@@ -1,7 +1,58 @@
 .headerSection {
-  padding-top: 9rem;
-  padding-bottom: 3rem;
+  padding-top: 6rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid var(--border);
+}
+
+.statsSection {
+  padding: 2.5rem 0;
+  background: linear-gradient(135deg, #fafafa 0%, #ffffff 50%, #f8f9fa 100%);
+  border-bottom: 1px solid var(--border);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.statCard {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.statValue {
+  display: block;
+  font-family: var(--font-family-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.35rem;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.formSection {
+  background: var(--bg-gradient-soft-right);
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .leadText {
