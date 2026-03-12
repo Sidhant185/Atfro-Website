@@ -1,15 +1,39 @@
-import { Typography } from '@/components/Typography/Typography';
-import { Button } from '@/components/Button/Button';
-import { FadeIn } from '@/components/FadeIn/FadeIn';
-import Link from 'next/link';
-import styles from './page.module.css';
+import { Typography } from "@/components/Typography/Typography";
+import { Button } from "@/components/Button/Button";
+import { FadeIn } from "@/components/FadeIn/FadeIn";
+import Link from "next/link";
+import type { Metadata } from "next";
+import styles from "./page.module.css";
+
+const pageUrl = "https://atfro.in";
+
+export const metadata: Metadata = {
+  title: "Business Transformation Architecture | ATFRO",
+  description:
+    "ATFRO architects business transformation systems across technology, growth, brand, and programs so startups can scale without chaos.",
+  alternates: {
+    canonical: pageUrl,
+  },
+  openGraph: {
+    url: pageUrl,
+    type: "website",
+    title: "Business Transformation Architecture | ATFRO",
+    description:
+      "A systems-first consulting firm that builds the architecture for scalable operations, brand, and growth.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Business Transformation Architecture | ATFRO",
+    description:
+      "Transformation architecture for startups and growth companies ready for structured scale.",
+  },
+};
 
 export default function Home() {
   return (
     <>
       {/* Redesigned Hero: Centered, Minimal, High-Impact Typography */}
       <section className={styles.hero}>
-        <div className={styles.heroGlow}></div>
         <div className={`container ${styles.heroContainer}`}>
           <div className={styles.heroContent}>
             <FadeIn direction="up" delay={0.1}>

@@ -7,19 +7,6 @@
   padding-top: 5rem;
 }
 
-.heroGlow {
-  position: absolute;
-  top: -20%;
-  right: -10%;
-  width: 60vw;
-  height: 60vw;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  animation: float 20s ease-in-out infinite alternate;
-}
-
 .heroContainer {
   display: flex;
   flex-direction: column;
@@ -82,7 +69,7 @@
 
 /* Bento Grid */
 .bentoTitle {
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 }
 
 .bentoGrid {
@@ -92,11 +79,11 @@
 }
 
 .bentoCard {
-  background: #ffffff; /* pure white pops off the warm bg */
+  background: #ffffff;
   border: 1px solid var(--border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
   border-radius: 1rem;
-  padding: 3.5rem;
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -105,8 +92,8 @@
 }
 
 .bentoCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
 }
 
 .iconBox {
@@ -152,9 +139,9 @@
 }
 
 .pillarCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.06);
 }
 
 .pillarNum {
@@ -171,6 +158,76 @@
 .pillarsAction {
   margin-top: 4rem;
   text-align: center;
+}
+
+/* Home Process Timeline */
+.processSection {
+  background-color: #ffffff;
+  border-top: 1px solid var(--border);
+}
+
+.processHeader {
+  max-width: 720px;
+}
+
+.processTitle {
+  margin-bottom: 1.5rem;
+}
+
+.processLead {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+}
+
+.processTimeline {
+  margin-top: 3rem;
+  display: grid;
+  gap: 2.5rem;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.timelineMarker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.markerDot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 999px;
+  background-color: var(--primary);
+}
+
+.markerLine {
+  flex: 1;
+  width: 2px;
+  margin-top: 0.5rem;
+  background: var(--border);
+}
+
+.timelineContent {
+  max-width: 640px;
+}
+
+.stageNum {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--text-muted);
+}
+
+.stageTitle {
+  margin-bottom: 0.5rem;
+}
+
+.stageDesc {
+  margin-bottom: 0;
 }
 
 @media (min-width: 768px) {
@@ -215,13 +272,8 @@
   }
 }
 
-@keyframes float {
-  from { transform: translate(0, 0); }
-  to { transform: translate(-30px, 30px); }
-}
-
 @keyframes floatAbstract {
-  0% { transform: translateY(0) rotateY(-15deg) rotateX(10deg); }
-  50% { transform: translateY(-20px) rotateY(-10deg) rotateX(15deg); }
-  100% { transform: translateY(0) rotateY(-15deg) rotateX(10deg); }
+  0% { transform: translateY(0) rotateY(-8deg) rotateX(6deg); }
+  50% { transform: translateY(-10px) rotateY(-6deg) rotateX(10deg); }
+  100% { transform: translateY(0) rotateY(-8deg) rotateX(6deg); }
 }
