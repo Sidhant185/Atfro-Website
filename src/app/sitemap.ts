@@ -1,7 +1,13 @@
 import { MetadataRoute } from "next";
 
+const BLOG_SLUGS = [
+  "the-architecture-of-scale",
+  "positioning-over-tactics",
+  "the-churn-paradox",
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+  const base: MetadataRoute.Sitemap = [
     {
       url: "https://atfro.in",
       lastModified: new Date(),
@@ -51,6 +57,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: "https://atfro.in/case-studies/saas-startup-transformation",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: "https://atfro.in/case-studies/sattvahar-digital-foundation",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: "https://atfro.in/contact",
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -68,6 +86,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    ...BLOG_SLUGS.map((slug) => ({
+      url: `https://atfro.in/blog/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
     {
       url: "https://atfro.in/privacy-policy",
       lastModified: new Date(),
@@ -81,4 +105,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.4,
     },
   ];
+
+  return base;
 }
