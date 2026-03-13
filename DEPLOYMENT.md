@@ -7,7 +7,7 @@ This document describes how to deploy the ATFRO Next.js website on **Hostinger B
 ## Prerequisites
 
 - Hostinger account with **Node.js** support (Business or higher)
-- Node.js **18.17 or later** on the server
+- Node.js **20.9 or later** (20.x or 22.x LTS). Next.js 16 does not support Node 18.
 - Git (for updates) or FTP/SFTP (for initial upload)
 
 ---
@@ -19,7 +19,7 @@ This document describes how to deploy the ATFRO Next.js website on **Hostinger B
 1. In Hostinger **hPanel**, go to **Advanced** → **Node.js** (or **Node.js App**).
 2. Create a new application:
    - **Application name:** e.g. `atfro-website`
-   - **Node.js version:** 18.x or 20.x (LTS)
+   - **Node.js version:** **20.x or 22.x** (required). Do not use 18.x — the build will fail.
    - **Application root:** e.g. `atfro.com` or `public_html` (as per Hostinger’s layout)
    - **Application startup file:** leave default or set to use `npm start` (see below).
 
@@ -124,6 +124,7 @@ npm start
 
 ## Troubleshooting
 
+- **Build fails: "Node.js version >=20.9.0 is required"** — Your host is using Node 18. In the hosting panel (e.g. Node.js app settings or Build settings), change the **Node version** to **20.x** or **22.x**. Do not use 18.x. The project has `engines.node` and `.nvmrc` set to 20 for this reason.
 - **Port:** If the app does not respond, confirm Hostinger has set `PORT` and that the Node.js app is bound to it. Next.js reads `process.env.PORT` automatically.
 - **Paths:** The app uses relative paths and Next.js defaults; no absolute filesystem paths are required.
 - **Static files:** Files in `public/` are served at the root URL. Do not remove or rename `public` when deploying.
