@@ -115,7 +115,7 @@ npm start
 
 ## Google Analytics & Search Console (Hardcoded)
 
-- **Google Analytics:** The tracking ID `G-R9132SCRDQ` is embedded in `src/components/Analytics/GoogleAnalytics.tsx`. No environment variables are required; the script loads on every page.
+- **Google Analytics:** The tracking ID `G-532QV67R3M` is in `src/app/layout.tsx` (inside `<head>` in the root layout, so it runs on every page). No environment variables are required.
 - **Google Search Console:** To verify ownership, open `src/app/layout.tsx` and set the `googleSiteVerification` constant to the content value from Search Console (HTML tag method). Example: `const googleSiteVerification = "abc123xyz";` then redeploy. Leave empty if not using.
 - **Sitemap:** Submit `https://atfro.com/sitemap.xml` in Search Console (URL prefix property) for indexing.
 - **Robots:** Crawling is allowed via `https://atfro.com/robots.txt`; the `host` directive points to the canonical domain for Google.
