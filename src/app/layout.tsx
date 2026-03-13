@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Footer } from "@/components/Footer/Footer";
+
 const siteUrl = "https://atfro.com";
+const GA_MEASUREMENT_ID = "G-R9132SCRDQ";
 
 /** Paste your Google Search Console HTML tag content here to enable verification. Leave empty if not using. */
 const googleSiteVerification = "";
@@ -58,27 +61,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Google tag (gtag.js) - immediately after head per Google's recommendation */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-R9132SCRDQ"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-R9132SCRDQ');
-            `,
-          }}
-        />
-      </head>
       <body
         className={inter.variable}
         style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
       >
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         {/* Organization & ProfessionalService Schema */}
         <script
           type="application/ld+json"
