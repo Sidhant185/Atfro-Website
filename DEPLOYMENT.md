@@ -130,6 +130,7 @@ npm start
 - **Static files:** Files in `public/` are served at the root URL. Do not remove or rename `public` when deploying.
 - **Build errors:** Run `npm run build` locally and fix any TypeScript or ESLint errors before pushing.
 - **404 / routes:** Ensure the hosting proxy or panel is set to forward all requests to the Node.js app (SPA/Node routing).
+- **503 / ChunkLoadError:** If the browser reports "Failed to load chunk" or 503 for `/_next/static/chunks/...`, the server was unavailable or the build output wasn’t fully deployed. Ensure the full `.next` folder (including `static/chunks`) is present after `npm run build`, the Node app has enough memory and isn’t timing out, and you’re using Node 20.x. Re-run the build and restart the app.
 
 ---
 

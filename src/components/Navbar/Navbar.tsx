@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
+const SITE_URL = 'https://atfro.com';
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'Services', href: '/services' },
-  { name: 'Process', href: '/process' },
-  { name: 'Case Studies', href: '/case-studies' },
-  { name: 'Insights', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Home', href: `${SITE_URL}/` },
+  { name: 'Services', href: `${SITE_URL}/services` },
+  { name: 'Process', href: `${SITE_URL}/process` },
+  { name: 'Case Studies', href: `${SITE_URL}/case-studies` },
+  { name: 'Insights', href: `${SITE_URL}/blog` },
+  { name: 'Contact', href: `${SITE_URL}/contact` },
 ];
 
 export const Navbar: React.FC = () => {
@@ -47,7 +48,7 @@ export const Navbar: React.FC = () => {
     <>
       <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
         <div className={styles.container}>
-          <Link href="/" className={styles.logo}>
+          <Link href={`${SITE_URL}/`} className={styles.logo}>
             AT<span>FRO</span>
           </Link>
 
@@ -57,7 +58,7 @@ export const Navbar: React.FC = () => {
               <Link 
                 key={link.name} 
                 href={link.href}
-                className={`${styles.navLink} ${pathname === link.href || (link.href === '/blog' && pathname.startsWith('/blog')) ? styles.active : ''}`}
+                className={`${styles.navLink} ${pathname === (link.href.replace(SITE_URL, '') || '/') || (link.href.startsWith(`${SITE_URL}/blog`) && pathname.startsWith('/blog')) ? styles.active : ''}`}
               >
                 {link.name}
               </Link>
@@ -65,7 +66,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           <div className={styles.actions}>
-            <Link href="/contact" className={styles.ctaButton}>
+            <Link href={`${SITE_URL}/contact`} className={styles.ctaButton}>
               Start Transformation
             </Link>
 
@@ -90,14 +91,14 @@ export const Navbar: React.FC = () => {
             <Link 
               key={link.name} 
               href={link.href}
-              className={`${styles.mobileNavLink} ${pathname === link.href || (link.href === '/blog' && pathname.startsWith('/blog')) ? styles.active : ''}`}
+              className={`${styles.mobileNavLink} ${pathname === (link.href.replace(SITE_URL, '') || '/') || (link.href.startsWith(`${SITE_URL}/blog`) && pathname.startsWith('/blog')) ? styles.active : ''}`}
               onClick={() => setIsOpen(false)}
             >
               {link.name}
             </Link>
           ))}
           <Link 
-            href="/contact" 
+            href={`${SITE_URL}/contact`} 
             className={styles.mobileCtaButton}
             onClick={() => setIsOpen(false)}
           >

@@ -67,6 +67,9 @@ export default function RootLayout({
           name="description"
           content="ATFRO architects transformation systems across technology, growth, brand, and operations so startups can scale without chaos."
         />
+        <meta name="robots" content="index, follow" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
         {/* Google Analytics — next/script: loads after hydration, runs on every route */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-R9132SCRDQ"

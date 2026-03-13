@@ -8,10 +8,16 @@ import styles from './page.module.css';
 
 type CaseStudySection = { heading: string; content: string[] };
 
+const SITE_URL = 'https://atfro.com';
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
+  const canonical = `${SITE_URL}/case-studies/${resolvedParams.slug}`;
   return {
     title: `${resolvedParams.slug.replace(/-/g, ' ')} | ATFRO Case Studies`,
+    description: `ATFRO case study: ${resolvedParams.slug.replace(/-/g, ' ')}. Real operations, real growth.`,
+    robots: 'index, follow',
+    alternates: { canonical },
   };
 }
 
