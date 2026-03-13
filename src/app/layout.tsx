@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -54,11 +55,16 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.ico" },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? "/";
+  const canonical =
+    pathname === "/" ? siteUrl : `${siteUrl}${pathname.startsWith("/") ? pathname : `/${pathname}`}`;
+
   return (
     <html lang="en">
       <head>
@@ -68,7 +74,7 @@ export default function RootLayout({
           content="ATFRO architects transformation systems across technology, growth, brand, and operations so startups can scale without chaos."
         />
         <meta name="robots" content="index, follow" />
-        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="canonical" href={canonical} />
         <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
         {/* Google Analytics — next/script: loads after hydration, runs on every route */}
         <Script

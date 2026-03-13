@@ -23,7 +23,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(CANONICAL_ORIGIN + url.pathname + url.search, 301);
   }
 
-  return NextResponse.next();
+  // Pass pathname so root layout can output explicit <link rel="canonical">
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', url.pathname || '/');
+
+  return NextResponse.next({
+    request: { headers: requestHeaders },
+  });
 }
 
 export const config = {
