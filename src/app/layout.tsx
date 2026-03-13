@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar/Navbar";
@@ -50,6 +51,7 @@ export const metadata: Metadata = {
       "Systems-first consulting for startups and growth-stage companies ready for structured, scalable growth.",
   },
   verification: googleSiteVerification ? { google: googleSiteVerification } : undefined,
+  icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({
@@ -60,21 +62,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google tag (gtag.js) — root layout: runs on every page */}
-        <script
-          async
+        {/* Google Analytics — next/script: loads after hydration, runs on every route */}
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-532QV67R3M"
+          strategy="afterInteractive"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-532QV67R3M');
-            `,
-          }}
-        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-532QV67R3M');
+          `}
+        </Script>
       </head>
       <body
         className={inter.variable}
