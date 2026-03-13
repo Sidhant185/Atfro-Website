@@ -6,7 +6,7 @@ import { Navbar } from "@/components/Navbar/Navbar";
 import { Footer } from "@/components/Footer/Footer";
 
 const siteUrl = "https://atfro.com";
-const GA_MEASUREMENT_ID = "G-R9132SCRDQ";
+const GA_MEASUREMENT_ID = "G-532QV67R3M";
 
 /** Paste your Google Search Console HTML tag content here to enable verification. Leave empty if not using. */
 const googleSiteVerification = "";
