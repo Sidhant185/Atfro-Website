@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "./page.module.css";
 
-const pageUrl = "https://atfro.in/services/growth";
+const pageUrl = "https://atfro.com/services/growth";
 
 export const metadata: Metadata = {
   title: "Growth Systems for Startups | ATFRO Growth",

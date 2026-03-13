@@ -6,15 +6,18 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
 
+type BlogBlock = { type: string; text?: string };
+type BlogPost = { title: string; author?: string; date?: string; category?: string; datePublished?: string; content?: BlogBlock[] };
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
   const post = blogData[resolvedParams.slug];
   if (!post) return { title: "Post | ATFRO Insights" };
   const title = post.title;
   const description =
-    post.content?.find((b: any) => b.type === "p")?.text?.slice(0, 160) + "…" ||
+    post.content?.find((b: BlogBlock) => b.type === "p")?.text?.slice(0, 160) + "…" ||
     "ATFRO insights on transformation architecture, growth, and operations.";
-  const url = `https://atfro.in/blog/${resolvedParams.slug}`;
+  const url = `https://atfro.com/blog/${resolvedParams.slug}`;
   return {
     title,
     description,
@@ -24,7 +27,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-const blogData: Record<string, any> = {
+const blogData: Record<string, BlogPost> = {
   'the-architecture-of-scale': {
     title: 'The Architecture of Scale: Why Your Tech Stack is Bleeding Revenue',
     author: 'Sidhant (Tech Lead & Founder)',
@@ -155,8 +158,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     notFound();
   }
 
-  const articleUrl = `https://atfro.in/blog/${resolvedParams.slug}`;
-  const datePublished = (post as any).datePublished || "2026-03-01";
+  const articleUrl = `https://atfro.com/blog/${resolvedParams.slug}`;
+  const datePublished = post.datePublished ?? "2026-03-01";
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -165,7 +168,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     datePublished,
     dateModified: datePublished,
     url: articleUrl,
-    publisher: { "@type": "Organization", name: "ATFRO", url: "https://atfro.in" },
+    publisher: { "@type": "Organization", name: "ATFRO", url: "https://atfro.com" },
   };
 
   return (
@@ -196,9 +199,10 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         <section className={`section ${styles.postBodyWrapper}`} style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
           <div className={`container ${styles.postContent}`}>
             {(() => {
-              const tocItems = post.content.filter((b: any) => b.type === 'h2').map((b: any) => ({
-                text: b.text,
-                id: b.text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+              const content = post.content ?? [];
+              const tocItems = content.filter((b: BlogBlock) => b.type === 'h2').map((b: BlogBlock) => ({
+                text: b.text ?? '',
+                id: (b.text ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
               }));
               return (
                 <>
@@ -214,18 +218,19 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                       </ul>
                     </nav>
                   )}
-                  {post.content.map((block: any, idx: number) => {
+                  {content.map((block: BlogBlock, idx: number) => {
                     if (block.type === 'h2') {
-                      const id = block.text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                      const text = block.text ?? '';
+                      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
                       return (
                         <FadeIn key={idx} direction="up" delay={idx * 0.05}>
-                          <h2 id={id} className={styles.heading2}>{block.text}</h2>
+                          <h2 id={id} className={styles.heading2}>{text}</h2>
                         </FadeIn>
                       );
                     }
                     return (
                       <FadeIn key={idx} direction="up" delay={idx * 0.05}>
-                        <Typography variant="p" className={styles.paragraph}>{block.text}</Typography>
+                        <Typography variant="p" className={styles.paragraph}>{block.text ?? ''}</Typography>
                       </FadeIn>
                     );
                   })}

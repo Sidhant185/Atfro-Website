@@ -6,7 +6,10 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Start Transformation | ATFRO',
-  description: 'Begin your transformation journey. Contact ATFRO to rebuild your operational systems and accelerate growth.',
+  description:
+    'Begin your transformation journey. Contact ATFRO to rebuild your operational systems and accelerate growth.',
+  alternates: { canonical: 'https://atfro.com/contact' },
+  openGraph: { url: 'https://atfro.com/contact', type: 'website' },
 };
 
 const stats = [
@@ -54,7 +57,7 @@ export default function ContactPage() {
               <div className={styles.contactDetails}>
                 <div className={styles.detailBlock}>
                   <Typography variant="caption" className={styles.detailLabel}>Email</Typography>
-                  <Typography variant="span" className={styles.detailValue}>hello@atfro.in</Typography>
+                  <Typography variant="span" className={styles.detailValue}>hello@atfro.com</Typography>
                 </div>
                 <div className={styles.detailBlock}>
                   <Typography variant="caption" className={styles.detailLabel}>Location</Typography>

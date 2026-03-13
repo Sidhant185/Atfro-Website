@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import styles from "./page.module.css";
 
-const pageUrl = "https://atfro.in/services/technology";
+const pageUrl = "https://atfro.com/services/technology";
 
 export const metadata: Metadata = {
   title: "Automation Systems for Businesses | ATFRO Technology",

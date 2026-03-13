@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
 
+type CaseStudySection = { heading: string; content: string[] };
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
   return {
@@ -13,7 +15,17 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-const caseStudyData: Record<string, any> = {
+type CaseStudyData = {
+  title: string;
+  client?: string;
+  challenge?: string;
+  metrics?: Array<{ value: string; label: string; sub?: string }>;
+  timeline?: Array<{ phase: string; desc: string }>;
+  sections?: CaseStudySection[];
+  testimonial?: string;
+  testimonialRole?: string;
+};
+const caseStudyData: Record<string, CaseStudyData> = {
   'saas-startup-transformation': {
     title: 'SaaS Startup Transformation',
     client: 'Growth-stage SaaS startup',
@@ -162,12 +174,12 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
         <section className={styles.metricsHero}>
           <div className="container">
             <div className={styles.metricsGrid}>
-              {metrics.map((m: { value: string; label: string; sub: string }, i: number) => (
+              {metrics.map((m: { value: string; label: string; sub?: string }, i: number) => (
                 <FadeIn key={i} direction="up" delay={i * 0.1}>
                   <div className={styles.metricCard}>
                     <span className={styles.metricValue}>{m.value}</span>
                     <span className={styles.metricLabel}>{m.label}</span>
-                    <span className={styles.metricSub}>{m.sub}</span>
+                    <span className={styles.metricSub}>{m.sub ?? ''}</span>
                   </div>
                 </FadeIn>
               ))}
@@ -193,7 +205,7 @@ export default async function CaseStudyPage({ params }: { params: { slug: string
               </div>
             </FadeIn>
           )}
-          {data.sections.map((section: any, idx: number) => (
+          {(data.sections ?? []).map((section: CaseStudySection, idx: number) => (
             <FadeIn key={idx} direction="up" delay={(idx + 1) * 0.1}>
               <div className={styles.contentBlock}>
                 <Typography variant="h3" className={styles.sectionHeading}>{section.heading}</Typography>

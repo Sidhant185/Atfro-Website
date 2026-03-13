@@ -1,7 +1,7 @@
 import { Typography } from "@/components/Typography/Typography";
 import type { Metadata } from "next";
 
-const pageUrl = "https://atfro.in/terms-of-service";
+const pageUrl = "https://atfro.com/terms-of-service";
 
 export const metadata: Metadata = {
   title: "Terms of Service | ATFRO",

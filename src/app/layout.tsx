@@ -5,7 +5,10 @@ import { Navbar } from "@/components/Navbar/Navbar";
 import { Footer } from "@/components/Footer/Footer";
 import { GoogleAnalytics } from "@/components/Analytics/GoogleAnalytics";
 
-const siteUrl = "https://atfro.in";
+const siteUrl = "https://atfro.com";
+
+/** Paste your Google Search Console HTML tag content here to enable verification. Leave empty if not using. */
+const googleSiteVerification = "";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -21,6 +24,7 @@ export const metadata: Metadata = {
   },
   description:
     "ATFRO architects transformation systems across technology, growth, brand, and operations so startups can scale without chaos.",
+  alternates: { canonical: siteUrl },
   robots: "index, follow",
   authors: [{ name: "ATFRO Team", url: siteUrl }],
   keywords: [
@@ -38,6 +42,7 @@ export const metadata: Metadata = {
     title: "ATFRO — Architecting Transformations For Robust Outcomes",
     description:
       "A transformation architecture firm that builds the systems, brand, and growth infrastructure for scalable businesses.",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "ATFRO" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -45,9 +50,7 @@ export const metadata: Metadata = {
     description:
       "Systems-first consulting for startups and growth-stage companies ready for structured, scalable growth.",
   },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
-  },
+  verification: googleSiteVerification ? { google: googleSiteVerification } : undefined,
 };
 
 export default function RootLayout({
@@ -61,7 +64,7 @@ export default function RootLayout({
         className={inter.variable}
         style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
       >
-        {/* Organization & Service Schema */}
+        {/* Organization & ProfessionalService Schema */}
         <script
           type="application/ld+json"
           suppressHydrationWarning
@@ -73,17 +76,26 @@ export default function RootLayout({
               url: siteUrl,
               description:
                 "ATFRO architects transformation systems across technology, growth, brand, and programs for scaling businesses.",
-              address: {
-                "@type": "PostalAddress",
-                addressCountry: "IN",
-              },
+              address: { "@type": "PostalAddress", addressCountry: "IN" },
               contactPoint: [
-                {
-                  "@type": "ContactPoint",
-                  email: "hello@atfro.in",
-                  contactType: "sales",
-                },
+                { "@type": "ContactPoint", email: "hello@atfro.com", contactType: "sales" },
               ],
+            }),
+          }}
+        />
+        {/* WebSite Schema for Search Console and sitelinks */}
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "ATFRO",
+              url: siteUrl,
+              description:
+                "ATFRO architects transformation systems across technology, growth, brand, and operations so startups can scale without chaos.",
+              publisher: { "@type": "Organization", name: "ATFRO", url: siteUrl },
             }),
           }}
         />

@@ -8,6 +8,8 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Insights & Blog | ATFRO',
   description: 'Research, insights, and structural methodologies from the ATFRO team.',
+  alternates: { canonical: 'https://atfro.com/blog' },
+  openGraph: { url: 'https://atfro.com/blog', type: 'website' },
 };
 
 const blogPosts = [

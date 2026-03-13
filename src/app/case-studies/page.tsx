@@ -8,6 +8,8 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Case Studies & About | ATFRO',
   description: 'Learn how ATFRO transforms SaaS startups into structured, scalable growth operations.',
+  alternates: { canonical: 'https://atfro.com/case-studies' },
+  openGraph: { url: 'https://atfro.com/case-studies', type: 'website' },
 };
 
 export default function CaseStudiesPage() {

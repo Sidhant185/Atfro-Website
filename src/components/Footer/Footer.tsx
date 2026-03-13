@@ -41,7 +41,7 @@ export const Footer = () => {
           <div className={styles.linksCol}>
              <Typography variant="h6" className={styles.colTitle}>Contact</Typography>
              <ul className={styles.linkList}>
-              <li><a href="mailto:hello@atfro.in">hello@atfro.in</a></li>
+              <li><a href="mailto:hello@atfro.com">hello@atfro.com</a></li>
               <li>India • Global Remote</li>
             </ul>
           </div>

@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ATFRO Website
 
-## Getting Started
+Official website for ATFRO — Architecting Transformations For Robust Outcomes. Built with Next.js (App Router), TypeScript, and CSS Modules.
 
-First, run the development server:
+## Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Styling:** CSS Modules, global CSS
+- **Deployment:** Hostinger Node.js
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Commands
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command        | Description                    |
+|----------------|--------------------------------|
+| `npm run dev`  | Start development server       |
+| `npm run build`| Production build               |
+| `npm start`    | Start production server        |
+| `npm run lint` | Run ESLint                     |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Production Deployment
 
-## Learn More
+For Hostinger deployment (install → build → start), see **[DEPLOYMENT.md](DEPLOYMENT.md)**.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `src/app/` — App Router pages, layouts, sitemap, robots
+- `src/components/` — Reusable UI (Navbar, Footer, Button, Typography, etc.)
+- `public/` — Static assets
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Analytics & SEO
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Google Analytics:** Tracking ID is configured in `src/components/Analytics/GoogleAnalytics.tsx`.
+- **Google Search Console:** To verify ownership, set the verification code in `src/app/layout.tsx` (`googleSiteVerification` constant).
+- **Sitemap:** `/sitemap.xml` — dynamically generated.
+- **Robots:** `/robots.txt` — allows crawling and references sitemap.

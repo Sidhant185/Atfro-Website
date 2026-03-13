@@ -8,6 +8,8 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Founders | ATFRO',
   description: 'Meet the architects behind ATFRO: Sidhant Pande, Shweta Ranjan, and Aayush Prakash.',
+  alternates: { canonical: 'https://atfro.com/founders' },
+  openGraph: { url: 'https://atfro.com/founders', type: 'website' },
 };
 
 const teamStats = [

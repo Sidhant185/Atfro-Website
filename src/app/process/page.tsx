@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import styles from "./page.module.css";
 
-const siteUrl = "https://atfro.in/process";
+const siteUrl = "https://atfro.com/process";
 
 export const metadata: Metadata = {
   title: "Business Transformation Process | ATFRO",

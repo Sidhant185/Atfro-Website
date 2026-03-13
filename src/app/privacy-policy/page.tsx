@@ -1,7 +1,7 @@
 import { Typography } from "@/components/Typography/Typography";
 import type { Metadata } from "next";
 
-const pageUrl = "https://atfro.in/privacy-policy";
+const pageUrl = "https://atfro.com/privacy-policy";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | ATFRO",

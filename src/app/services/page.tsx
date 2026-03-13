@@ -7,7 +7,10 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Our Systems & Deliverables | ATFRO',
-  description: 'Explore the 4-Pillar Architecture: Tech Infrastructure, Growth & Marketing, Brand Positioning, and Programs & Experience.',
+  description:
+    'Explore the 4-Pillar Architecture: Tech Infrastructure, Growth & Marketing, Brand Positioning, and Programs & Experience.',
+  alternates: { canonical: 'https://atfro.com/services' },
+  openGraph: { url: 'https://atfro.com/services', type: 'website' },
 };
 
 const pillars = [

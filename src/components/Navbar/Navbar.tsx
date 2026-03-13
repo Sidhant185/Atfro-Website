@@ -28,17 +28,20 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close menu when route changes (deferred to avoid synchronous setState in effect)
   useEffect(() => {
-    // Close menu when route changes
-    setIsOpen(false);
-    
-    // Prevent scrolling when menu is open
+    const t = setTimeout(() => setIsOpen(false), 0);
+    return () => clearTimeout(t);
+  }, [pathname]);
+
+  useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-  }, [isOpen, pathname]);
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
 
   return (
     <>
