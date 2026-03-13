@@ -64,7 +64,7 @@ export default function RootLayout({
       <head>
         {/* Google Analytics — next/script: loads after hydration, runs on every route */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-532QV67R3M"
+          src="https://www.googletagmanager.com/gtag/js?id=G-R9132SCRDQ"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -72,7 +72,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-532QV67R3M');
+            gtag('config', 'G-R9132SCRDQ');
           `}
         </Script>
       </head>
