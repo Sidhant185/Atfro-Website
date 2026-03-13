@@ -1,0 +1,7 @@
+# https://atfro.com/robots.txt
+User-agent: *
+Allow: /
+Disallow: /private/
+
+Sitemap: https://atfro.com/sitemap.xml
+Host: atfro.com

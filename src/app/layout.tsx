@@ -62,6 +62,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <title>ATFRO — Architecting Transformations For Robust Outcomes</title>
+        <meta
+          name="description"
+          content="ATFRO architects transformation systems across technology, growth, brand, and operations so startups can scale without chaos."
+        />
         {/* Google Analytics — next/script: loads after hydration, runs on every route */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-R9132SCRDQ"
