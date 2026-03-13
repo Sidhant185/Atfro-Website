@@ -73,22 +73,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Scroll Animation - Reveal on Scroll
+  // Scroll Animation - Reveal on Scroll (respect reduced motion preferences)
   var revealElements = document.querySelectorAll('section, .problem-card, .pillar-card, .stage-card, .card');
-  
-  var revealObserver = new IntersectionObserver(function(entries, observer) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
 
-  revealElements.forEach(function(el) {
-    el.classList.add('reveal-on-scroll');
-    revealObserver.observe(el);
-  });
+  var prefersReducedMotion = false;
+  if (window.matchMedia) {
+    prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  if (!prefersReducedMotion && 'IntersectionObserver' in window && revealElements.length > 0) {
+    var revealObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(function(el) {
+      el.classList.add('reveal-on-scroll');
+      revealObserver.observe(el);
+    });
+  }
 
   setTimeout(function () {
     if (document.visibilityState === 'visible') {
